@@ -1,0 +1,19 @@
+sudo: required
+language: java
+services:
+- docker
+before_install:
+- mkdir /tmp/build
+- docker pull qcifengineering/redbox-builder
+- docker run -v /tmp/build:/build -e "CLONEPATH=https://github.com/redbox-mint/redbox-transaction-external-curation.git"
+  qcifengineering/redbox-builder
+install: true
+script: true
+after_success:
+- docker run -v /tmp/build:/build -e "SONATYPE_USERNAME=$SONATYPE_USERNAME" -e "SONATYPE_PASSWORD=$SONATYPE_PASSWORD"
+  qcifengineering/redbox-builder /bin/bash -c "cd build/src;mvn --settings /m2_repo/travis-settings.xml
+  -Dmaven.repo.local=/m2_repo -DskipTests=true deploy"
+env:
+  global:
+  - secure: k2HQdNhINZ+BfMZm9P53BBBK/60cjWKzqbm8pusv8zUcdUPOcGzjRVI8Hpxwd/oiA2Z89/fm5WOcO/zXeqVdSQAfeUKj8i7waYNEZTz90G4rp6enFx/swOVPq3vB16Bn6AMhHLLa131pFTX3v5SGCD19wOmEczuIPitQMvpkcRHwyyQG9isYDjpnzLSUFybLvdT4dVwvGybekH1LBS8F22QRXQVtiQmMrGJ/c+xL8ZiI+AUTYAZM8FOm9aWwnXKayBhdePJQQaQNNBLgsvlXkd5IT5s1DTn7lgkg7lixcsRPTI+pCllYVJDW3v793yrr2OkTvb/hl9NO3UGGN3n0yJ6nupO8V4GyBCo95q1+x41NcEvpf90b628ZqrkZvOZobDNmhb5xSa4HyynQYWuaPiEgZ+12Vldh8loRAVSwKNKyVUr5tm9XZ6+YgBCR93gPV8Oe7dDYmCw2/z3l0jb3xl5FAKnHcFXsLSw9W7U9zgDb0W+tyMDjrxq6E0yDPrhAYT5jDmYxzqPq5FBdFhLCWbGk7vh2laJlmoSyN4Bd7/WOoDfzp24P6IKqBkaA5esKQAM51CjBaxeu+pmLgsGNDVmjuekUDiE1rx0NNFyBZBTKsNE1AuonnmSFtaiHDNCDYKHy14L63r9AFbCGRpB2nvzLl+4XA8VQlnxV4rJwBvw=
+  - secure: EMmaWvnDx7ApGCYb2guZUxuTkEeLN8bzsa3Az+q4B5fErt9R7qTU6NuiygDkfpkXS2CTuKOE6n1mmGAVZzPA3t+VnMerTnjEWJ04nNxvxfoJhqHZy/c4jPK7pFEhAEubJAokaeZfM5XtK7a+frwgFqFg66KiAL8Bplp5QDEp5YVtX9ypVetqVpXmefKLEp9mMyevh/PQO5MpFvf7Lc2omSbAyuT+miA/l5ZywOodsqJzHX9nzz1jyRWvRLZ2odR823hjVuwJkEmeRz2wQOOgGN8biv8Ijs2bMgzOxf2/ygaIn0zOWVj6jeTRNo35m+QOn7U5OZwD28M7tB6ybV7HSudA0w7EA3NDl2rODQOt6YM+7ALdl0JzVcurzLTZ2vsAoItsWFl8j0EmJUwp4mly9OeiajbjsqogJkuIwq4mY4Iun6EqzQcqzAwlMj8ml1AC3GK74Yv2Da+Awmgxul9VGl+kNcneofvAYp+pWL5aPB/aiQTIgZmNR/zLBe5G3rTA7M3BwZ5i3b4N2s6n/lG1jxv/yhNMxb+erqdydFMJeJ7a8VdQPXLQUrSnWfdYUOj2lg2zeTVmHfajtXQIJGr92ZHhKJwf+H4sw7yp7D85k/M62ZDthD5iJhSyajyaToDuCCyCu+sqOSSzbq7hjvstLV8Blbdipp1E/sMXEYaWTMM=
