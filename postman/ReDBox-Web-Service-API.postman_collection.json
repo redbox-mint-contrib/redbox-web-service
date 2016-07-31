@@ -1,0 +1,268 @@
+{
+	"variables": [],
+	"info": {
+		"name": "ReDBox Web Service API",
+		"_postman_id": "18778387-dc43-bc37-3c5d-e83472772851",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Update Object Metadata",
+			"request": {
+				"url": "http://localhost:9000/redbox/api/v1/objectmetadata/035f69986c1bc06a2819e7faa02a14f1",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 12314124124412",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"render-pending\": \"false\",\n    \"last_modified\": \"20160729185515\",\n    \"owner\": \"admin\",\n    \"repository.type\": \"Metadata Registry\",\n    \"metaPid\": \"TF-OBJ-META\",\n    \"jsonConfigOid\": \"586be51bf583b5c0b027d0a7272d07a7\",\n    \"jsonConfigPid\": \"dataset.json\",\n    \"date_object_created\": \"2016-07-29T18:55:00Z\",\n    \"repository.name\": \"ReDBox\",\n    \"rulesOid\": \"bfd588a810e2438244f73add8154d8ba\",\n    \"objectId\": \"6017b6e8e9515e0aca3a7550d7592a5b\",\n    \"scriptType\": \"python\",\n    \"file.path\": \"/Users/abrazzatti/orcid/home/packages/3c6b9c35-698d-4fad-a684-bf6bf1900d4f.tfpackage\",\n    \"rulesPid\": \"dataset-rules.py\",\n    \"date_object_modified\": \"2016-07-29T18:55:15Z\",\n    \"test\":\"Additional new param updated via API\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Record Metadata",
+			"request": {
+				"url": "http://localhost:9000/redbox/api/v1/recordmetadata/035f69986c1bc06a2819e7faa02a14f1",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 12314124124412",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Updated the title via RM API\",\n    \"viewId\": \"default\",\n    \"packageType\": \"dataset\",\n    \"description\": \"A description\",\n    \"redbox:newForm\": \"false\",\n    \"redbox:formVersion\": \"1.8.1-SNAPSHOT\",\n    \"dc:title\": \"Updated the title via RM API\",\n    \"dc:type.rdf:PlainLiteral\": \"\",\n    \"dc:type.skos:prefLabel\": \"\",\n    \"dc:created\": \"2016-07-29\",\n    \"dc:modified\": \"\",\n    \"dc:language.dc:identifier\": \"\",\n    \"dc:language.skos:prefLabel\": \"\",\n    \"dc:coverage.vivo:DateTimeInterval.vivo:start\": \"\",\n    \"dc:coverage.vivo:DateTimeInterval.vivo:end\": \"\",\n    \"dc:coverage.redbox:timePeriod\": \"\",\n    \"dc:coverage.vivo:GeographicLocation.1.dc:type\": \"\",\n    \"dc:coverage.vivo:GeographicLocation.1.redbox:wktRaw\": \"\",\n    \"dc:coverage.vivo:GeographicLocation.1.rdf:PlainLiteral\": \"\",\n    \"dc:coverage.vivo:GeographicLocation.1.geo:long\": \"\",\n    \"dc:coverage.vivo:GeographicLocation.1.geo:lat\": \"\",\n    \"dc:coverage.vivo:GeographicLocation.1.dc:identifier\": \"\",\n    \"dc:description.1.text\": \"\",\n    \"dc:description.1.type\": \"full\",\n    \"dc:relation.swrc:Publication.1.dc:identifier\": \"\",\n    \"dc:relation.swrc:Publication.1.dc:title\": \"\",\n    \"dc:relation.swrc:Publication.1.skos:note\": \"\",\n    \"dc:relation.bibo:Website.1.dc:identifier\": \"\",\n    \"dc:relation.bibo:Website.1.dc:title\": \"\",\n    \"dc:relation.bibo:Website.1.skos:note\": \"\",\n    \"dc:relation.vivo:Dataset.1.dc:identifier\": \"\",\n    \"dc:relation.vivo:Dataset.1.vivo:Relationship.rdf:PlainLiteral\": \"hasAssociationWith\",\n    \"dc:relation.vivo:Dataset.1.vivo:Relationship.skos:prefLabel\": \"Has association with:\",\n    \"dc:relation.vivo:Dataset.1.dc:title\": \"\",\n    \"dc:relation.vivo:Dataset.1.skos:note\": \"\",\n    \"dc:relation.vivo:Dataset.1.redbox:origin\": \"on\",\n    \"dc:relation.vivo:Dataset.1.redbox:publish\": \"\",\n    \"dc:relation.vivo:Service.1.dc:identifier\": \"\",\n    \"dc:relation.vivo:Service.1.vivo:Relationship.rdf:PlainLiteral\": \"hasAssociationWith\",\n    \"dc:relation.vivo:Service.1.vivo:Relationship.skos:prefLabel\": \"Has association with:\",\n    \"dc:relation.vivo:Service.1.dc:title\": \"\",\n    \"dc:relation.vivo:Service.1.skos:note\": \"\",\n    \"dc:creator.foaf:Person.1.dc:identifier\": \"\",\n    \"dc:creator.foaf:Person.1.foaf:name\": \"\",\n    \"dc:creator.foaf:Person.1.foaf:title\": \"\",\n    \"dc:creator.foaf:Person.1.redbox:isCoPrimaryInvestigator\": \"\",\n    \"dc:creator.foaf:Person.1.redbox:isPrimaryInvestigator\": \"\",\n    \"dc:creator.foaf:Person.1.foaf:givenName\": \"\",\n    \"dc:creator.foaf:Person.1.foaf:familyName\": \"\",\n    \"dc:creator.foaf:Person.1.foaf:Organization.dc:identifier\": \"\",\n    \"dc:creator.foaf:Person.1.foaf:Organization.skos:prefLabel\": \"\",\n    \"locrel:prc.foaf:Person.dc:identifier\": \"\",\n    \"locrel:prc.foaf:Person.foaf:name\": \"\",\n    \"locrel:prc.foaf:Person.foaf:title\": \"\",\n    \"locrel:prc.foaf:Person.foaf:givenName\": \"\",\n    \"locrel:prc.foaf:Person.foaf:familyName\": \"\",\n    \"locrel:prc.foaf:Person.foaf:email\": \"\",\n    \"swrc:supervisor.foaf:Person.1.dc:identifier\": \"\",\n    \"swrc:supervisor.foaf:Person.1.foaf:name\": \"\",\n    \"swrc:supervisor.foaf:Person.1.foaf:title\": \"\",\n    \"swrc:supervisor.foaf:Person.1.foaf:givenName\": \"\",\n    \"swrc:supervisor.foaf:Person.1.foaf:familyName\": \"\",\n    \"dc:contributor.locrel:clb.1.foaf:Agent\": \"\",\n    \"dc:subject.vivo:keyword.1.rdf:PlainLiteral\": \"\",\n    \"dc:subject.anzsrc:toa.rdf:resource\": \"\",\n    \"dc:subject.anzsrc:toa.skos:prefLabel\": \"\",\n    \"dc:accessRights.skos:prefLabel\": \"\",\n    \"dc:accessRights.dc:identifier\": \"\",\n    \"dc:accessRights.dc:RightsStatement.skos:prefLabel\": \"\",\n    \"dc:accessRights.dc:RightsStatement.dc:identifier\": \"\",\n    \"dc:license.skos:prefLabel\": \"\",\n    \"dc:license.dc:identifier\": \"\",\n    \"dc:license.rdf:Alt.skos:prefLabel\": \"\",\n    \"dc:license.rdf:Alt.dc:identifier\": \"\",\n    \"dc:identifier.rdf:PlainLiteral\": \"\",\n    \"dc:identifier.dc:type.rdf:PlainLiteral\": \"handle\",\n    \"dc:identifier.dc:type.skos:prefLabel\": \"HANDLE System Identifier\",\n    \"dc:identifier.redbox:origin\": \"\",\n    \"bibo:Website.1.dc:identifier\": \"\",\n    \"vivo:Location.vivo:GeographicLocation.gn:name\": \"\",\n    \"vivo:Location.vivo:GeographicLocation.skos:note\": \"\",\n    \"redbox:retentionPeriod\": \"\",\n    \"dc:extent\": \"\",\n    \"redbox:disposalDate\": \"\",\n    \"locrel:own.foaf:Agent.1.foaf:name\": \"\",\n    \"locrel:dtm.foaf:Agent.foaf:name\": \"\",\n    \"foaf:Organization.dc:identifier\": \"\",\n    \"foaf:Organization.skos:prefLabel\": \"\",\n    \"foaf:fundedBy.foaf:Agent.1.skos:prefLabel\": \"\",\n    \"foaf:fundedBy.foaf:Agent.1.dc:identifier\": \"\",\n    \"foaf:fundedBy.vivo:Grant.1.redbox:internalGrant\": \"\",\n    \"foaf:fundedBy.vivo:Grant.1.redbox:grantNumber\": \"\",\n    \"foaf:fundedBy.vivo:Grant.1.dc:identifier\": \"\",\n    \"foaf:fundedBy.vivo:Grant.1.skos:prefLabel\": \"\",\n    \"swrc:ResearchProject.dc:title\": \"\",\n    \"locrel:dpt.foaf:Person.foaf:name\": \"\",\n    \"dc:SizeOrDuration\": \"\",\n    \"dc:Policy\": \"\",\n    \"redbox:ManagementPlan.redbox:hasPlan\": null,\n    \"redbox:ManagementPlan.skos:note\": \"\",\n    \"skos:note.1.dc:created\": \"2016-07-29 18:55:14\",\n    \"skos:note.1.foaf:name\": \"admin\",\n    \"skos:note.1.dc:description\": \"\",\n    \"dc:biblioGraphicCitation.skos:prefLabel\": \"\",\n    \"dc:biblioGraphicCitation.redbox:sendCitation\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:identifier.skos:note\": \"useCuration\",\n    \"dc:biblioGraphicCitation.dc:hasPart.locrel:ctb.1.foaf:title\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.locrel:ctb.1.foaf:givenName\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.locrel:ctb.1.foaf:familyName\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:title\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:hasVersion.rdf:PlainLiteral\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:publisher.rdf:PlainLiteral\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.vivo:Publisher.vivo:Location\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:date.1.rdf:PlainLiteral\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:date.2.rdf:PlainLiteral\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:date.1.dc:type.rdf:PlainLiteral\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:date.2.dc:type.rdf:PlainLiteral\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:date.1.dc:type.skos:prefLabel\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:date.2.dc:type.skos:prefLabel\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.bibo:Website.dc:identifier\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.skos:scopeNote\": \"\",\n    \"redbox:submissionProcess.redbox:submitted\": \"null\",\n    \"redbox:submissionProcess.dc:date\": \"\",\n    \"redbox:submissionProcess.dc:description\": \"\",\n    \"redbox:submissionProcess.locrel:prc.foaf:Person.foaf:name\": \"\",\n    \"redbox:submissionProcess.locrel:prc.foaf:Person.foaf:phone\": \"\",\n    \"redbox:submissionProcess.locrel:prc.foaf:Person.foaf:mbox\": \"\",\n    \"redbox:submissionProcess.dc:title\": \"\",\n    \"redbox:submissionProcess.skos:note\": \"\",\n    \"redbox:embargo.redbox:isEmbargoed\": \"\",\n    \"redbox:embargo.dc:date\": \"\",\n    \"redbox:embargo.skos:note\": \"\",\n    \"dc:accessRightsType\": \"\",\n    \"dc:relation.redbox:TechnicalMetadata.1.dc:identifier\": \"\",\n    \"dc:relation.redbox:TechnicalMetadata.1.dc:title\": \"\",\n    \"dc:relation.redbox:TechnicalMetadata.1.dc:type\": \"\",\n    \"dc:relation.redbox:TechnicalMetadata.1.dc:conformsTo\": \"\",\n    \"xmlns:dc\": \"http://dublincore.org/documents/2008/01/14/dcmi-terms/\",\n    \"xmlns:foaf\": \"http://xmlns.com/foaf/spec/\",\n    \"xmlns:anzsrc\": \"http://purl.org/anzsrc/\",\n    \"metaList\": [\n        \"dc:title\",\n        \"dc:type.rdf:PlainLiteral\",\n        \"dc:type.skos:prefLabel\",\n        \"dc:created\",\n        \"dc:modified\",\n        \"dc:language.dc:identifier\",\n        \"dc:language.skos:prefLabel\",\n        \"redbox:formVersion\",\n        \"redbox:newForm\",\n        \"dc:coverage.vivo:DateTimeInterval.vivo:start\",\n        \"dc:coverage.vivo:DateTimeInterval.vivo:end\",\n        \"dc:coverage.redbox:timePeriod\",\n        \"dc:coverage.vivo:GeographicLocation.1.dc:type\",\n        \"dc:coverage.vivo:GeographicLocation.1.redbox:wktRaw\",\n        \"dc:coverage.vivo:GeographicLocation.1.rdf:PlainLiteral\",\n        \"dc:coverage.vivo:GeographicLocation.1.geo:long\",\n        \"dc:coverage.vivo:GeographicLocation.1.geo:lat\",\n        \"dc:coverage.vivo:GeographicLocation.1.dc:identifier\",\n        \"dc:description.1.text\",\n        \"dc:description.1.type\",\n        \"dc:relation.swrc:Publication.1.dc:identifier\",\n        \"dc:relation.swrc:Publication.1.dc:title\",\n        \"dc:relation.swrc:Publication.1.skos:note\",\n        \"dc:relation.bibo:Website.1.dc:identifier\",\n        \"dc:relation.bibo:Website.1.dc:title\",\n        \"dc:relation.bibo:Website.1.skos:note\",\n        \"dc:relation.vivo:Dataset.1.dc:identifier\",\n        \"dc:relation.vivo:Dataset.1.vivo:Relationship.rdf:PlainLiteral\",\n        \"dc:relation.vivo:Dataset.1.vivo:Relationship.skos:prefLabel\",\n        \"dc:relation.vivo:Dataset.1.dc:title\",\n        \"dc:relation.vivo:Dataset.1.skos:note\",\n        \"dc:relation.vivo:Dataset.1.redbox:origin\",\n        \"dc:relation.vivo:Dataset.1.redbox:publish\",\n        \"dc:relation.vivo:Service.1.dc:identifier\",\n        \"dc:relation.vivo:Service.1.vivo:Relationship.rdf:PlainLiteral\",\n        \"dc:relation.vivo:Service.1.vivo:Relationship.skos:prefLabel\",\n        \"dc:relation.vivo:Service.1.dc:title\",\n        \"dc:relation.vivo:Service.1.skos:note\",\n        \"dc:creator.foaf:Person.1.dc:identifier\",\n        \"dc:creator.foaf:Person.1.foaf:name\",\n        \"dc:creator.foaf:Person.1.foaf:title\",\n        \"dc:creator.foaf:Person.1.redbox:isCoPrimaryInvestigator\",\n        \"dc:creator.foaf:Person.1.redbox:isPrimaryInvestigator\",\n        \"dc:creator.foaf:Person.1.foaf:givenName\",\n        \"dc:creator.foaf:Person.1.foaf:familyName\",\n        \"dc:creator.foaf:Person.1.foaf:Organization.dc:identifier\",\n        \"dc:creator.foaf:Person.1.foaf:Organization.skos:prefLabel\",\n        \"locrel:prc.foaf:Person.dc:identifier\",\n        \"locrel:prc.foaf:Person.foaf:name\",\n        \"locrel:prc.foaf:Person.foaf:title\",\n        \"locrel:prc.foaf:Person.foaf:givenName\",\n        \"locrel:prc.foaf:Person.foaf:familyName\",\n        \"locrel:prc.foaf:Person.foaf:email\",\n        \"swrc:supervisor.foaf:Person.1.dc:identifier\",\n        \"swrc:supervisor.foaf:Person.1.foaf:name\",\n        \"swrc:supervisor.foaf:Person.1.foaf:title\",\n        \"swrc:supervisor.foaf:Person.1.foaf:givenName\",\n        \"swrc:supervisor.foaf:Person.1.foaf:familyName\",\n        \"dc:contributor.locrel:clb.1.foaf:Agent\",\n        \"dc:subject.vivo:keyword.1.rdf:PlainLiteral\",\n        \"dc:subject.anzsrc:toa.rdf:resource\",\n        \"dc:subject.anzsrc:toa.skos:prefLabel\",\n        \"dc:accessRights.skos:prefLabel\",\n        \"dc:accessRights.dc:identifier\",\n        \"dc:accessRights.dc:RightsStatement.skos:prefLabel\",\n        \"dc:accessRights.dc:RightsStatement.dc:identifier\",\n        \"dc:license.skos:prefLabel\",\n        \"dc:license.dc:identifier\",\n        \"dc:license.rdf:Alt.skos:prefLabel\",\n        \"dc:license.rdf:Alt.dc:identifier\",\n        \"dc:identifier.rdf:PlainLiteral\",\n        \"dc:identifier.dc:type.rdf:PlainLiteral\",\n        \"dc:identifier.dc:type.skos:prefLabel\",\n        \"dc:identifier.redbox:origin\",\n        \"bibo:Website.1.dc:identifier\",\n        \"vivo:Location.vivo:GeographicLocation.gn:name\",\n        \"vivo:Location.vivo:GeographicLocation.skos:note\",\n        \"redbox:retentionPeriod\",\n        \"dc:extent\",\n        \"redbox:disposalDate\",\n        \"locrel:own.foaf:Agent.1.foaf:name\",\n        \"locrel:dtm.foaf:Agent.foaf:name\",\n        \"foaf:Organization.dc:identifier\",\n        \"foaf:Organization.skos:prefLabel\",\n        \"foaf:fundedBy.foaf:Agent.1.skos:prefLabel\",\n        \"foaf:fundedBy.foaf:Agent.1.dc:identifier\",\n        \"foaf:fundedBy.vivo:Grant.1.redbox:internalGrant\",\n        \"foaf:fundedBy.vivo:Grant.1.redbox:grantNumber\",\n        \"foaf:fundedBy.vivo:Grant.1.dc:identifier\",\n        \"foaf:fundedBy.vivo:Grant.1.skos:prefLabel\",\n        \"swrc:ResearchProject.dc:title\",\n        \"locrel:dpt.foaf:Person.foaf:name\",\n        \"dc:SizeOrDuration\",\n        \"dc:Policy\",\n        \"redbox:ManagementPlan.redbox:hasPlan\",\n        \"redbox:ManagementPlan.skos:note\",\n        \"skos:note.1.dc:created\",\n        \"skos:note.1.foaf:name\",\n        \"skos:note.1.dc:description\",\n        \"dc:biblioGraphicCitation.skos:prefLabel\",\n        \"dc:biblioGraphicCitation.redbox:sendCitation\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:identifier.skos:note\",\n        \"dc:biblioGraphicCitation.dc:hasPart.locrel:ctb.1.foaf:title\",\n        \"dc:biblioGraphicCitation.dc:hasPart.locrel:ctb.1.foaf:givenName\",\n        \"dc:biblioGraphicCitation.dc:hasPart.locrel:ctb.1.foaf:familyName\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:title\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:hasVersion.rdf:PlainLiteral\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:publisher.rdf:PlainLiteral\",\n        \"dc:biblioGraphicCitation.dc:hasPart.vivo:Publisher.vivo:Location\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:date.1.rdf:PlainLiteral\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:date.2.rdf:PlainLiteral\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:date.1.dc:type.rdf:PlainLiteral\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:date.2.dc:type.rdf:PlainLiteral\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:date.1.dc:type.skos:prefLabel\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:date.2.dc:type.skos:prefLabel\",\n        \"dc:biblioGraphicCitation.dc:hasPart.bibo:Website.dc:identifier\",\n        \"dc:biblioGraphicCitation.dc:hasPart.skos:scopeNote\",\n        \"redbox:submissionProcess.redbox:submitted\",\n        \"redbox:submissionProcess.dc:date\",\n        \"redbox:submissionProcess.dc:description\",\n        \"redbox:submissionProcess.locrel:prc.foaf:Person.foaf:name\",\n        \"redbox:submissionProcess.locrel:prc.foaf:Person.foaf:phone\",\n        \"redbox:submissionProcess.locrel:prc.foaf:Person.foaf:mbox\",\n        \"redbox:submissionProcess.dc:title\",\n        \"redbox:submissionProcess.skos:note\",\n        \"redbox:embargo.redbox:isEmbargoed\",\n        \"redbox:embargo.dc:date\",\n        \"redbox:embargo.skos:note\",\n        \"dc:accessRightsType\",\n        \"dc:relation.redbox:TechnicalMetadata.1.dc:identifier\",\n        \"dc:relation.redbox:TechnicalMetadata.1.dc:title\",\n        \"dc:relation.redbox:TechnicalMetadata.1.dc:type\",\n        \"dc:relation.redbox:TechnicalMetadata.1.dc:conformsTo\",\n        \"xmlns:dc\",\n        \"xmlns:foaf\",\n        \"xmlns:anzsrc\"\n    ]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create dataset",
+			"request": {
+				"url": "http://localhost:9000/redbox/api/v1/object/dataset",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 12314124124412",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Created via the API 3\",\n    \"viewId\": \"default\",\n    \"packageType\": \"dataset\",\n    \"description\": \"A description API 2\",\n    \"redbox:newForm\": \"false\",\n    \"redbox:formVersion\": \"1.8.1-SNAPSHOT\",\n    \"dc:title\": \"Created via the API 2\",\n    \"dc:type.rdf:PlainLiteral\": \"\",\n    \"dc:type.skos:prefLabel\": \"\",\n    \"dc:created\": \"2016-07-29\",\n    \"dc:modified\": \"\",\n    \"dc:language.dc:identifier\": \"\",\n    \"dc:language.skos:prefLabel\": \"\",\n    \"dc:coverage.vivo:DateTimeInterval.vivo:start\": \"\",\n    \"dc:coverage.vivo:DateTimeInterval.vivo:end\": \"\",\n    \"dc:coverage.redbox:timePeriod\": \"\",\n    \"dc:coverage.vivo:GeographicLocation.1.dc:type\": \"\",\n    \"dc:coverage.vivo:GeographicLocation.1.redbox:wktRaw\": \"\",\n    \"dc:coverage.vivo:GeographicLocation.1.rdf:PlainLiteral\": \"\",\n    \"dc:coverage.vivo:GeographicLocation.1.geo:long\": \"\",\n    \"dc:coverage.vivo:GeographicLocation.1.geo:lat\": \"\",\n    \"dc:coverage.vivo:GeographicLocation.1.dc:identifier\": \"\",\n    \"dc:description.1.text\": \"\",\n    \"dc:description.1.type\": \"full\",\n    \"dc:relation.swrc:Publication.1.dc:identifier\": \"\",\n    \"dc:relation.swrc:Publication.1.dc:title\": \"\",\n    \"dc:relation.swrc:Publication.1.skos:note\": \"\",\n    \"dc:relation.bibo:Website.1.dc:identifier\": \"\",\n    \"dc:relation.bibo:Website.1.dc:title\": \"\",\n    \"dc:relation.bibo:Website.1.skos:note\": \"\",\n    \"dc:relation.vivo:Dataset.1.dc:identifier\": \"\",\n    \"dc:relation.vivo:Dataset.1.vivo:Relationship.rdf:PlainLiteral\": \"hasAssociationWith\",\n    \"dc:relation.vivo:Dataset.1.vivo:Relationship.skos:prefLabel\": \"Has association with:\",\n    \"dc:relation.vivo:Dataset.1.dc:title\": \"\",\n    \"dc:relation.vivo:Dataset.1.skos:note\": \"\",\n    \"dc:relation.vivo:Dataset.1.redbox:origin\": \"on\",\n    \"dc:relation.vivo:Dataset.1.redbox:publish\": \"\",\n    \"dc:relation.vivo:Service.1.dc:identifier\": \"\",\n    \"dc:relation.vivo:Service.1.vivo:Relationship.rdf:PlainLiteral\": \"hasAssociationWith\",\n    \"dc:relation.vivo:Service.1.vivo:Relationship.skos:prefLabel\": \"Has association with:\",\n    \"dc:relation.vivo:Service.1.dc:title\": \"\",\n    \"dc:relation.vivo:Service.1.skos:note\": \"\",\n    \"dc:creator.foaf:Person.1.dc:identifier\": \"\",\n    \"dc:creator.foaf:Person.1.foaf:name\": \"\",\n    \"dc:creator.foaf:Person.1.foaf:title\": \"\",\n    \"dc:creator.foaf:Person.1.redbox:isCoPrimaryInvestigator\": \"\",\n    \"dc:creator.foaf:Person.1.redbox:isPrimaryInvestigator\": \"\",\n    \"dc:creator.foaf:Person.1.foaf:givenName\": \"\",\n    \"dc:creator.foaf:Person.1.foaf:familyName\": \"\",\n    \"dc:creator.foaf:Person.1.foaf:Organization.dc:identifier\": \"\",\n    \"dc:creator.foaf:Person.1.foaf:Organization.skos:prefLabel\": \"\",\n    \"locrel:prc.foaf:Person.dc:identifier\": \"\",\n    \"locrel:prc.foaf:Person.foaf:name\": \"\",\n    \"locrel:prc.foaf:Person.foaf:title\": \"\",\n    \"locrel:prc.foaf:Person.foaf:givenName\": \"\",\n    \"locrel:prc.foaf:Person.foaf:familyName\": \"\",\n    \"locrel:prc.foaf:Person.foaf:email\": \"\",\n    \"swrc:supervisor.foaf:Person.1.dc:identifier\": \"\",\n    \"swrc:supervisor.foaf:Person.1.foaf:name\": \"\",\n    \"swrc:supervisor.foaf:Person.1.foaf:title\": \"\",\n    \"swrc:supervisor.foaf:Person.1.foaf:givenName\": \"\",\n    \"swrc:supervisor.foaf:Person.1.foaf:familyName\": \"\",\n    \"dc:contributor.locrel:clb.1.foaf:Agent\": \"\",\n    \"dc:subject.vivo:keyword.1.rdf:PlainLiteral\": \"\",\n    \"dc:subject.anzsrc:toa.rdf:resource\": \"\",\n    \"dc:subject.anzsrc:toa.skos:prefLabel\": \"\",\n    \"dc:accessRights.skos:prefLabel\": \"\",\n    \"dc:accessRights.dc:identifier\": \"\",\n    \"dc:accessRights.dc:RightsStatement.skos:prefLabel\": \"\",\n    \"dc:accessRights.dc:RightsStatement.dc:identifier\": \"\",\n    \"dc:license.skos:prefLabel\": \"\",\n    \"dc:license.dc:identifier\": \"\",\n    \"dc:license.rdf:Alt.skos:prefLabel\": \"\",\n    \"dc:license.rdf:Alt.dc:identifier\": \"\",\n    \"dc:identifier.rdf:PlainLiteral\": \"\",\n    \"dc:identifier.dc:type.rdf:PlainLiteral\": \"handle\",\n    \"dc:identifier.dc:type.skos:prefLabel\": \"HANDLE System Identifier\",\n    \"dc:identifier.redbox:origin\": \"\",\n    \"bibo:Website.1.dc:identifier\": \"\",\n    \"vivo:Location.vivo:GeographicLocation.gn:name\": \"\",\n    \"vivo:Location.vivo:GeographicLocation.skos:note\": \"\",\n    \"redbox:retentionPeriod\": \"\",\n    \"dc:extent\": \"\",\n    \"redbox:disposalDate\": \"\",\n    \"locrel:own.foaf:Agent.1.foaf:name\": \"\",\n    \"locrel:dtm.foaf:Agent.foaf:name\": \"\",\n    \"foaf:Organization.dc:identifier\": \"\",\n    \"foaf:Organization.skos:prefLabel\": \"\",\n    \"foaf:fundedBy.foaf:Agent.1.skos:prefLabel\": \"\",\n    \"foaf:fundedBy.foaf:Agent.1.dc:identifier\": \"\",\n    \"foaf:fundedBy.vivo:Grant.1.redbox:internalGrant\": \"\",\n    \"foaf:fundedBy.vivo:Grant.1.redbox:grantNumber\": \"\",\n    \"foaf:fundedBy.vivo:Grant.1.dc:identifier\": \"\",\n    \"foaf:fundedBy.vivo:Grant.1.skos:prefLabel\": \"\",\n    \"swrc:ResearchProject.dc:title\": \"\",\n    \"locrel:dpt.foaf:Person.foaf:name\": \"\",\n    \"dc:SizeOrDuration\": \"\",\n    \"dc:Policy\": \"\",\n    \"redbox:ManagementPlan.redbox:hasPlan\": null,\n    \"redbox:ManagementPlan.skos:note\": \"\",\n    \"skos:note.1.dc:created\": \"2016-07-29 18:55:14\",\n    \"skos:note.1.foaf:name\": \"admin\",\n    \"skos:note.1.dc:description\": \"\",\n    \"dc:biblioGraphicCitation.skos:prefLabel\": \"\",\n    \"dc:biblioGraphicCitation.redbox:sendCitation\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:identifier.skos:note\": \"useCuration\",\n    \"dc:biblioGraphicCitation.dc:hasPart.locrel:ctb.1.foaf:title\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.locrel:ctb.1.foaf:givenName\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.locrel:ctb.1.foaf:familyName\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:title\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:hasVersion.rdf:PlainLiteral\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:publisher.rdf:PlainLiteral\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.vivo:Publisher.vivo:Location\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:date.1.rdf:PlainLiteral\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:date.2.rdf:PlainLiteral\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:date.1.dc:type.rdf:PlainLiteral\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:date.2.dc:type.rdf:PlainLiteral\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:date.1.dc:type.skos:prefLabel\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.dc:date.2.dc:type.skos:prefLabel\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.bibo:Website.dc:identifier\": \"\",\n    \"dc:biblioGraphicCitation.dc:hasPart.skos:scopeNote\": \"\",\n    \"redbox:submissionProcess.redbox:submitted\": \"null\",\n    \"redbox:submissionProcess.dc:date\": \"\",\n    \"redbox:submissionProcess.dc:description\": \"\",\n    \"redbox:submissionProcess.locrel:prc.foaf:Person.foaf:name\": \"\",\n    \"redbox:submissionProcess.locrel:prc.foaf:Person.foaf:phone\": \"\",\n    \"redbox:submissionProcess.locrel:prc.foaf:Person.foaf:mbox\": \"\",\n    \"redbox:submissionProcess.dc:title\": \"\",\n    \"redbox:submissionProcess.skos:note\": \"\",\n    \"redbox:embargo.redbox:isEmbargoed\": \"\",\n    \"redbox:embargo.dc:date\": \"\",\n    \"redbox:embargo.skos:note\": \"\",\n    \"dc:accessRightsType\": \"\",\n    \"dc:relation.redbox:TechnicalMetadata.1.dc:identifier\": \"\",\n    \"dc:relation.redbox:TechnicalMetadata.1.dc:title\": \"\",\n    \"dc:relation.redbox:TechnicalMetadata.1.dc:type\": \"\",\n    \"dc:relation.redbox:TechnicalMetadata.1.dc:conformsTo\": \"\",\n    \"xmlns:dc\": \"http://dublincore.org/documents/2008/01/14/dcmi-terms/\",\n    \"xmlns:foaf\": \"http://xmlns.com/foaf/spec/\",\n    \"xmlns:anzsrc\": \"http://purl.org/anzsrc/\",\n    \"metaList\": [\n        \"dc:title\",\n        \"dc:type.rdf:PlainLiteral\",\n        \"dc:type.skos:prefLabel\",\n        \"dc:created\",\n        \"dc:modified\",\n        \"dc:language.dc:identifier\",\n        \"dc:language.skos:prefLabel\",\n        \"redbox:formVersion\",\n        \"redbox:newForm\",\n        \"dc:coverage.vivo:DateTimeInterval.vivo:start\",\n        \"dc:coverage.vivo:DateTimeInterval.vivo:end\",\n        \"dc:coverage.redbox:timePeriod\",\n        \"dc:coverage.vivo:GeographicLocation.1.dc:type\",\n        \"dc:coverage.vivo:GeographicLocation.1.redbox:wktRaw\",\n        \"dc:coverage.vivo:GeographicLocation.1.rdf:PlainLiteral\",\n        \"dc:coverage.vivo:GeographicLocation.1.geo:long\",\n        \"dc:coverage.vivo:GeographicLocation.1.geo:lat\",\n        \"dc:coverage.vivo:GeographicLocation.1.dc:identifier\",\n        \"dc:description.1.text\",\n        \"dc:description.1.type\",\n        \"dc:relation.swrc:Publication.1.dc:identifier\",\n        \"dc:relation.swrc:Publication.1.dc:title\",\n        \"dc:relation.swrc:Publication.1.skos:note\",\n        \"dc:relation.bibo:Website.1.dc:identifier\",\n        \"dc:relation.bibo:Website.1.dc:title\",\n        \"dc:relation.bibo:Website.1.skos:note\",\n        \"dc:relation.vivo:Dataset.1.dc:identifier\",\n        \"dc:relation.vivo:Dataset.1.vivo:Relationship.rdf:PlainLiteral\",\n        \"dc:relation.vivo:Dataset.1.vivo:Relationship.skos:prefLabel\",\n        \"dc:relation.vivo:Dataset.1.dc:title\",\n        \"dc:relation.vivo:Dataset.1.skos:note\",\n        \"dc:relation.vivo:Dataset.1.redbox:origin\",\n        \"dc:relation.vivo:Dataset.1.redbox:publish\",\n        \"dc:relation.vivo:Service.1.dc:identifier\",\n        \"dc:relation.vivo:Service.1.vivo:Relationship.rdf:PlainLiteral\",\n        \"dc:relation.vivo:Service.1.vivo:Relationship.skos:prefLabel\",\n        \"dc:relation.vivo:Service.1.dc:title\",\n        \"dc:relation.vivo:Service.1.skos:note\",\n        \"dc:creator.foaf:Person.1.dc:identifier\",\n        \"dc:creator.foaf:Person.1.foaf:name\",\n        \"dc:creator.foaf:Person.1.foaf:title\",\n        \"dc:creator.foaf:Person.1.redbox:isCoPrimaryInvestigator\",\n        \"dc:creator.foaf:Person.1.redbox:isPrimaryInvestigator\",\n        \"dc:creator.foaf:Person.1.foaf:givenName\",\n        \"dc:creator.foaf:Person.1.foaf:familyName\",\n        \"dc:creator.foaf:Person.1.foaf:Organization.dc:identifier\",\n        \"dc:creator.foaf:Person.1.foaf:Organization.skos:prefLabel\",\n        \"locrel:prc.foaf:Person.dc:identifier\",\n        \"locrel:prc.foaf:Person.foaf:name\",\n        \"locrel:prc.foaf:Person.foaf:title\",\n        \"locrel:prc.foaf:Person.foaf:givenName\",\n        \"locrel:prc.foaf:Person.foaf:familyName\",\n        \"locrel:prc.foaf:Person.foaf:email\",\n        \"swrc:supervisor.foaf:Person.1.dc:identifier\",\n        \"swrc:supervisor.foaf:Person.1.foaf:name\",\n        \"swrc:supervisor.foaf:Person.1.foaf:title\",\n        \"swrc:supervisor.foaf:Person.1.foaf:givenName\",\n        \"swrc:supervisor.foaf:Person.1.foaf:familyName\",\n        \"dc:contributor.locrel:clb.1.foaf:Agent\",\n        \"dc:subject.vivo:keyword.1.rdf:PlainLiteral\",\n        \"dc:subject.anzsrc:toa.rdf:resource\",\n        \"dc:subject.anzsrc:toa.skos:prefLabel\",\n        \"dc:accessRights.skos:prefLabel\",\n        \"dc:accessRights.dc:identifier\",\n        \"dc:accessRights.dc:RightsStatement.skos:prefLabel\",\n        \"dc:accessRights.dc:RightsStatement.dc:identifier\",\n        \"dc:license.skos:prefLabel\",\n        \"dc:license.dc:identifier\",\n        \"dc:license.rdf:Alt.skos:prefLabel\",\n        \"dc:license.rdf:Alt.dc:identifier\",\n        \"dc:identifier.rdf:PlainLiteral\",\n        \"dc:identifier.dc:type.rdf:PlainLiteral\",\n        \"dc:identifier.dc:type.skos:prefLabel\",\n        \"dc:identifier.redbox:origin\",\n        \"bibo:Website.1.dc:identifier\",\n        \"vivo:Location.vivo:GeographicLocation.gn:name\",\n        \"vivo:Location.vivo:GeographicLocation.skos:note\",\n        \"redbox:retentionPeriod\",\n        \"dc:extent\",\n        \"redbox:disposalDate\",\n        \"locrel:own.foaf:Agent.1.foaf:name\",\n        \"locrel:dtm.foaf:Agent.foaf:name\",\n        \"foaf:Organization.dc:identifier\",\n        \"foaf:Organization.skos:prefLabel\",\n        \"foaf:fundedBy.foaf:Agent.1.skos:prefLabel\",\n        \"foaf:fundedBy.foaf:Agent.1.dc:identifier\",\n        \"foaf:fundedBy.vivo:Grant.1.redbox:internalGrant\",\n        \"foaf:fundedBy.vivo:Grant.1.redbox:grantNumber\",\n        \"foaf:fundedBy.vivo:Grant.1.dc:identifier\",\n        \"foaf:fundedBy.vivo:Grant.1.skos:prefLabel\",\n        \"swrc:ResearchProject.dc:title\",\n        \"locrel:dpt.foaf:Person.foaf:name\",\n        \"dc:SizeOrDuration\",\n        \"dc:Policy\",\n        \"redbox:ManagementPlan.redbox:hasPlan\",\n        \"redbox:ManagementPlan.skos:note\",\n        \"skos:note.1.dc:created\",\n        \"skos:note.1.foaf:name\",\n        \"skos:note.1.dc:description\",\n        \"dc:biblioGraphicCitation.skos:prefLabel\",\n        \"dc:biblioGraphicCitation.redbox:sendCitation\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:identifier.skos:note\",\n        \"dc:biblioGraphicCitation.dc:hasPart.locrel:ctb.1.foaf:title\",\n        \"dc:biblioGraphicCitation.dc:hasPart.locrel:ctb.1.foaf:givenName\",\n        \"dc:biblioGraphicCitation.dc:hasPart.locrel:ctb.1.foaf:familyName\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:title\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:hasVersion.rdf:PlainLiteral\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:publisher.rdf:PlainLiteral\",\n        \"dc:biblioGraphicCitation.dc:hasPart.vivo:Publisher.vivo:Location\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:date.1.rdf:PlainLiteral\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:date.2.rdf:PlainLiteral\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:date.1.dc:type.rdf:PlainLiteral\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:date.2.dc:type.rdf:PlainLiteral\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:date.1.dc:type.skos:prefLabel\",\n        \"dc:biblioGraphicCitation.dc:hasPart.dc:date.2.dc:type.skos:prefLabel\",\n        \"dc:biblioGraphicCitation.dc:hasPart.bibo:Website.dc:identifier\",\n        \"dc:biblioGraphicCitation.dc:hasPart.skos:scopeNote\",\n        \"redbox:submissionProcess.redbox:submitted\",\n        \"redbox:submissionProcess.dc:date\",\n        \"redbox:submissionProcess.dc:description\",\n        \"redbox:submissionProcess.locrel:prc.foaf:Person.foaf:name\",\n        \"redbox:submissionProcess.locrel:prc.foaf:Person.foaf:phone\",\n        \"redbox:submissionProcess.locrel:prc.foaf:Person.foaf:mbox\",\n        \"redbox:submissionProcess.dc:title\",\n        \"redbox:submissionProcess.skos:note\",\n        \"redbox:embargo.redbox:isEmbargoed\",\n        \"redbox:embargo.dc:date\",\n        \"redbox:embargo.skos:note\",\n        \"dc:accessRightsType\",\n        \"dc:relation.redbox:TechnicalMetadata.1.dc:identifier\",\n        \"dc:relation.redbox:TechnicalMetadata.1.dc:title\",\n        \"dc:relation.redbox:TechnicalMetadata.1.dc:type\",\n        \"dc:relation.redbox:TechnicalMetadata.1.dc:conformsTo\",\n        \"xmlns:dc\",\n        \"xmlns:foaf\",\n        \"xmlns:anzsrc\"\n    ]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Datastream",
+			"request": {
+				"url": "http://localhost:9000/redbox/api/v1/datastream/035f69986c1bc06a2819e7faa02a14f1?datastreamId=rif.xml",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/octet-stream",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 12314124124412",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Datastream",
+			"request": {
+				"url": "http://localhost:9000/redbox/api/v1/datastream/6017b6e8e9515e0aca3a7550d7592a5b?attachmentId=testdatastream.file",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 12314124124412",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Datastream List",
+			"request": {
+				"url": "http://localhost:9000/redbox/api/v1/datastream/fcde9e5c654035a329d1102eb1a48a48/list",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 12314124124412",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Datastream",
+			"request": {
+				"url": "http://localhost:9000/redbox/api/v1/datastream/6017b6e8e9515e0aca3a7550d7592a5b?datastreamId=testdatastream.file",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 12314124124412",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "content",
+							"value": "iViewRipper.lnk",
+							"type": "file",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Object",
+			"request": {
+				"url": "http://localhost:9000/redbox/api/v1/object/fcde9e5c654035a329d1102eb1a48a48",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 12314124124412",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Server Info",
+			"request": {
+				"url": "http://localhost:9000/redbox/api/v1/info",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 12314124124412",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Search ReDBox Index",
+			"request": {
+				"url": "http://localhost:9000/redbox/api/v1/search?q=*:*&start=0",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 12314124124412",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Send a message to a queue",
+			"request": {
+				"url": "http://localhost:9000/redbox/api/v1/messaging/transactionManager",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 12314124124412",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"task\":\"reharvest\",\n \"oid\":\"8b59d3a260b7815abf63e476133c68fa\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

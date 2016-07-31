@@ -18,6 +18,8 @@ import com.googlecode.fascinator.common.messaging.MessagingException;
 import com.googlecode.fascinator.common.storage.StorageUtils;
 import com.googlecode.fascinator.spring.ApplicationContextProvider;
 import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiImplicitParam;
+import com.wordnik.swagger.annotations.ApiImplicitParams;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
@@ -47,6 +49,8 @@ public class RecordMetadataResource extends RedboxServerResource {
 	}
 
 	@ApiOperation(value = "updates the record's metadata", tags = "recordmeta")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "skipReindex", value = "Skip the reindex process. Useful if you are batching many changes to a ReDBox object at once.", required = false, allowMultiple = false, defaultValue = "false", dataType = "string") })
 	@ApiResponses({ @ApiResponse(code = 200, message = "The record's metadata is updated"),
 			@ApiResponse(code = 500, message = "General Error", response = Exception.class) })
 	@Post("json")

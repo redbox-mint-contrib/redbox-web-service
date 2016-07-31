@@ -26,18 +26,20 @@ import com.googlecode.fascinator.common.messaging.MessagingException;
 import com.googlecode.fascinator.common.storage.StorageUtils;
 import com.googlecode.fascinator.spring.ApplicationContextProvider;
 import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiImplicitParam;
+import com.wordnik.swagger.annotations.ApiImplicitParams;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
-@Api(value = "datastream", description="Produces a datastream")
+@Api(value = "datastream", description = "Produces a datastream")
 public class DatastreamResource extends RedboxServerResource {
 
 	@ApiOperation(value = "Get a datastream from a ReDBox object", tags = "datastream")
-	@ApiResponses({
-        @ApiResponse(code = 200, message = "The datastream is retrieved"),
-        @ApiResponse(code = 500, message = "General Error", response = Exception.class)
-	})
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "datastreamId", value="The identifier of the datastream", required = true, allowMultiple = false, dataType = "string") })
+	@ApiResponses({ @ApiResponse(code = 200, message = "The datastream is retrieved"),
+			@ApiResponse(code = 500, message = "General Error", response = Exception.class) })
 	@Get("application/octet-stream")
 	public Representation getDatastream() throws IOException {
 		try {
@@ -50,18 +52,19 @@ public class DatastreamResource extends RedboxServerResource {
 
 				return new ByteArrayRepresentation(IOUtils.toByteArray(payload.open()));
 			} else {
-				throw new ResourceException(400,"Call requires a datastreamId value");
+				throw new ResourceException(400, "Call requires a datastreamId value");
 			}
 		} catch (StorageException e) {
 			throw new ResourceException(500, e, e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "Create or update a datastream in a ReDBox object", tags = "object")
-	@ApiResponses({
-        @ApiResponse(code = 200, message = "The datastream is created or updated"),
-        @ApiResponse(code = 500, message = "General Error", response = Exception.class)
-	})
+	@ApiOperation(value = "Create or update a datastream in a ReDBox object", tags = "datastream")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "skipReindex", value="Skip the reindex process. Useful if you are batching many changes to a ReDBox object at once.", required = false, allowMultiple = false, defaultValue = "false", dataType = "string"),
+		@ApiImplicitParam(name = "datastreamId",  value="The identifier of the datastream", required = true, allowMultiple = false, dataType = "string") })
+	@ApiResponses({ @ApiResponse(code = 200, message = "The datastream is created or updated"),
+			@ApiResponse(code = 500, message = "General Error", response = Exception.class) })
 	@Post
 	public String updateDatastream(Representation entity)
 			throws FileUploadException, IOException, PluginException, MessagingException {
@@ -88,19 +91,22 @@ public class DatastreamResource extends RedboxServerResource {
 
 	}
 
+	@ApiOperation(value = "Delete a datastream in a ReDBox object", tags = "datastream")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "skipReindex", value="Skip the reindex process. Useful if you are batching many changes to a ReDBox object at once.", required = false, allowMultiple = false, defaultValue = "false", dataType = "string"),
+		@ApiImplicitParam(name = "datastreamId",  value="The identifier of the datastream", required = true, allowMultiple = false, dataType = "string") })
 	@Delete
-	public String deleteDatastream(Representation entity)
-			throws FileUploadException, IOException, PluginException, MessagingException {
+	public String deleteDatastream() throws FileUploadException, IOException, PluginException, MessagingException {
 		Storage storage = (Storage) ApplicationContextProvider.getApplicationContext().getBean("fascinatorStorage");
 		String oid = getAttribute("oid");
 		String payloadId = getQueryValue("datastreamId");
 		DigitalObject digitalObject = StorageUtils.getDigitalObject(storage, oid);
 
 		try {
-		@SuppressWarnings("unused")
-		Payload payload = digitalObject.getPayload(payloadId);
+			@SuppressWarnings("unused")
+			Payload payload = digitalObject.getPayload(payloadId);
 		} catch (StorageException e) {
-			throw new ResourceException(404, e,"Datastream does not exist in the object");
+			throw new ResourceException(404, e, "Datastream does not exist in the object");
 		}
 		digitalObject.removePayload(payloadId);
 		reindex(oid);
