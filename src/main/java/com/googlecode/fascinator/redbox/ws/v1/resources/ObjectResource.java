@@ -37,15 +37,27 @@ public class ObjectResource extends RedboxServerResource {
 	public String createObjectResource(JsonRepresentation data)
 			throws IOException, PluginException, MessagingException {
 		Storage storage = (Storage) ApplicationContextProvider.getApplicationContext().getBean("fascinatorStorage");
+		JsonSimpleConfig config = new JsonSimpleConfig();
 
 		String packageType = getAttribute("packageType");
-		JsonSimpleConfig config = new JsonSimpleConfig();
+		String harvestPath = "harvest/workflows/";
+		String repositoryName = "ReDBox";
+		String payloadId = "metadata.tfpackage";
 		String rulesConfig = config.getString(null, "portal", "packageTypes", packageType, "jsonconfig");
-		File rulesConfigFile = FascinatorHome.getPathFile("harvest/workflows/" + rulesConfig);
+		
+		
+		if ("mint".equals(config.getString(null, "system"))) {
+			harvestPath = "harvest/";
+			repositoryName = "Mint";
+			payloadId = "metadata.json";
+			rulesConfig = packageType+".json";
+		}
+		File rulesConfigFile = FascinatorHome.getPathFile(harvestPath + rulesConfig);
+
 		JsonSimple rulesConfigJson = new JsonSimple(rulesConfigFile);
 		String rulesScript = rulesConfigJson.getString(null, "indexer", "script", "rules");
 		String scriptType = rulesConfigJson.getString(null, "indexer", "script", "type");
-		File rulesScriptFile = FascinatorHome.getPathFile("harvest/workflows/" + rulesScript);
+		File rulesScriptFile = FascinatorHome.getPathFile(harvestPath + rulesScript);
 
 		DigitalObject rulesConfigObject = checkHarvestFile(storage, rulesConfigFile);
 		DigitalObject rulesObject = checkHarvestFile(storage, rulesScriptFile);
@@ -56,7 +68,8 @@ public class ObjectResource extends RedboxServerResource {
 		objectMetadata.put("objectId", oid);
 		objectMetadata.put("render-pending", "true");
 		objectMetadata.put("owner", "admin");
-		objectMetadata.put("repository.name", "ReDBox");
+		objectMetadata.put("repository.name", repositoryName);
+
 		objectMetadata.put("repository.type", "Metadata Registry");
 		objectMetadata.put("metaPid", "TF-OBJ-META");
 		objectMetadata.setProperty("scriptType", scriptType);
@@ -74,12 +87,7 @@ public class ObjectResource extends RedboxServerResource {
 		}
 
 		JsonSimple metadataJson = new JsonSimple(data.getText());
-		String payloadId;
-		if ("mint".equals(config.getString(null, "system"))) {
-			payloadId = "metadata.json";
-		} else {
-			payloadId = "metadata.tfpackage";
-		}
+
 		StorageUtils.createOrUpdatePayload(recordObject, payloadId,
 				IOUtils.toInputStream(metadataJson.toString(true), "utf-8"));
 

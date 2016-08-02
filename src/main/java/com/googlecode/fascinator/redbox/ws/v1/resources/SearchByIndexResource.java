@@ -21,7 +21,7 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
 @Api(value = "search", description="Search ReDBox's search index")
-public class SearchResource extends RedboxServerResource {
+public class SearchByIndexResource extends RedboxServerResource {
 
 	@ApiOperation(value = "Search ReDBox's search index", tags = "search")
 	@ApiResponses({
@@ -31,6 +31,7 @@ public class SearchResource extends RedboxServerResource {
 	@Get
 	public JsonRepresentation searchIndex() throws IndexerException, IOException{
 		Indexer indexer = (Indexer) ApplicationContextProvider.getApplicationContext().getBean("fascinatorIndexer");
+		String indexName = getAttribute("index");
 		String query = getQueryValue("q");
 		SearchRequest request = new SearchRequest(query);
 		Form form = getQuery();
@@ -42,7 +43,7 @@ public class SearchResource extends RedboxServerResource {
 			}
 		}
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		indexer.search(request, byteArrayOutputStream);
+		indexer.searchByIndex(request, byteArrayOutputStream,indexName);
 		return new JsonRepresentation(new JsonSimple(new ByteArrayInputStream(byteArrayOutputStream.toByteArray())).toString());
 	}
 

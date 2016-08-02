@@ -1,19 +1,25 @@
 package com.googlecode.fascinator.redbox.ws;
 
+import java.io.IOException;
+
 import org.restlet.Restlet;
 import org.restlet.data.ChallengeScheme;
+import org.restlet.ext.swagger.Swagger2SpecificationRestlet;
 import org.restlet.ext.swagger.SwaggerApplication;
 import org.restlet.routing.Router;
 import org.restlet.security.ChallengeAuthenticator;
 
+import com.googlecode.fascinator.common.JsonSimpleConfig;
 import com.googlecode.fascinator.redbox.ws.security.TokenBasedVerifier;
 import com.googlecode.fascinator.redbox.ws.v1.resources.DatastreamResource;
+import com.googlecode.fascinator.redbox.ws.v1.resources.DeleteObjectResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.InfoResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.ListDatastreamResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.ObjectMetadataResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.ObjectResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.QueueMessageResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.RecordMetadataResource;
+import com.googlecode.fascinator.redbox.ws.v1.resources.SearchByIndexResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.SearchResource;
 
 public class ReDBoxWebServiceApplication extends SwaggerApplication {
@@ -34,9 +40,19 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 		privateV1Router.attach("/v1/object/{packageType}", ObjectResource.class);
 		privateV1Router.attach("/v1/info", InfoResource.class);
 		privateV1Router.attach("/v1/search", SearchResource.class);
+		privateV1Router.attach("/v1/search/{index}", SearchByIndexResource.class);
 		privateV1Router.attach("/v1/messaging/{messageQueue}", QueueMessageResource.class);
+		String apiPath = "http://localhost:9000/redbox/api/v1";
+		try {
+			JsonSimpleConfig config = new JsonSimpleConfig();
+			String urlBase = config.getString("http://localhost:9000/redbox", "urlBase");
+			apiPath = urlBase + "/api/v1";
+		} catch (IOException e) {
+		}
+		Swagger2SpecificationRestlet swagger2SpecificationRestlet = new Swagger2SpecificationRestlet(this);
+		swagger2SpecificationRestlet.setBasePath(apiPath);
+		swagger2SpecificationRestlet.attach(baseRouter);
 
-		attachSwaggerSpecificationRestlet(baseRouter);
 		guard.setNext(privateV1Router);
 		baseRouter.attach(guard);
 		return baseRouter;
