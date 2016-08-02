@@ -12,7 +12,6 @@ import org.restlet.security.ChallengeAuthenticator;
 import com.googlecode.fascinator.common.JsonSimpleConfig;
 import com.googlecode.fascinator.redbox.ws.security.TokenBasedVerifier;
 import com.googlecode.fascinator.redbox.ws.v1.resources.DatastreamResource;
-import com.googlecode.fascinator.redbox.ws.v1.resources.DeleteObjectResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.InfoResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.ListDatastreamResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.ObjectMetadataResource;
