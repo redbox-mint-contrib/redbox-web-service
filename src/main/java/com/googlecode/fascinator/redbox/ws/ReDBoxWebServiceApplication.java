@@ -12,6 +12,7 @@ import org.restlet.security.ChallengeAuthenticator;
 import com.googlecode.fascinator.common.JsonSimpleConfig;
 import com.googlecode.fascinator.redbox.ws.security.TokenBasedVerifier;
 import com.googlecode.fascinator.redbox.ws.v1.resources.DatastreamResource;
+import com.googlecode.fascinator.redbox.ws.v1.resources.DeleteObjectResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.InfoResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.ListDatastreamResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.ObjectMetadataResource;
@@ -37,6 +38,7 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 		privateV1Router.attach("/v1/datastream/{oid}/list", ListDatastreamResource.class);
 		privateV1Router.attach("/v1/datastream/{oid}", DatastreamResource.class);
 		privateV1Router.attach("/v1/object/{packageType}", ObjectResource.class);
+		privateV1Router.attach("/v1/object/{oid}/delete", DeleteObjectResource.class);
 		privateV1Router.attach("/v1/info", InfoResource.class);
 		privateV1Router.attach("/v1/search", SearchResource.class);
 		privateV1Router.attach("/v1/search/{index}", SearchByIndexResource.class);

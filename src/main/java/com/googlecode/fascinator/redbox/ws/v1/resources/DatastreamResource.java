@@ -33,6 +33,7 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
 @Api(value = "datastream", description = "Produces a datastream")
+
 public class DatastreamResource extends RedboxServerResource {
 
 	@ApiOperation(value = "Get a datastream from a ReDBox object", tags = "datastream")

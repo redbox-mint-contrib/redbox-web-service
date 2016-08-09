@@ -1,36 +1,16 @@
 package com.googlecode.fascinator.redbox.ws.security;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.simple.JSONArray;
 import org.restlet.Request;
 import org.restlet.Response;
 import org.restlet.security.Verifier;
 
-import com.googlecode.fascinator.common.JsonObject;
-import com.googlecode.fascinator.common.JsonSimpleConfig;
+import com.googlecode.fascinator.spring.ApplicationContextProvider;
 
 public class TokenBasedVerifier implements Verifier {
-	Map<String, String> authorizedKeyMap;
+	ApiKeyTokenService apiKeyTokenService = null;
 
 	public TokenBasedVerifier() {
-		authorizedKeyMap = new HashMap<String, String>();
-		try {
-			JsonSimpleConfig config = new JsonSimpleConfig();
-			JSONArray clients = config.getArray("api", "clients");
-
-			if (clients != null) {
-				for (Object client : clients) {
-					JsonObject clientObject = (JsonObject) client;
-					authorizedKeyMap.put((String) clientObject.get("apiKey"), (String) clientObject.get("username"));
-				}
-			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-
+		apiKeyTokenService = (ApiKeyTokenService)ApplicationContextProvider.getApplicationContext().getBean("apiKeyTokenService");
 	}
 
 	/**
@@ -57,7 +37,7 @@ public class TokenBasedVerifier implements Verifier {
 	}
 
 	private int checkToken(String token) {
-		if (authorizedKeyMap.containsKey(token)) {
+		if (apiKeyTokenService.getAuthorizedKeyMap().containsKey(token)) {
 			return Verifier.RESULT_VALID;
 		}
 
