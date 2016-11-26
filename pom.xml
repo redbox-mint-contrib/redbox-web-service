@@ -82,5 +82,10 @@
 			<version>4.1</version>
 		</dependency>
 	</dependencies>
-
+        <scm>
+		<url>scm:git://github.com/redbox-mint-contrib/redbox-web-service.git</url>
+		<connection>scm:git://github.com/redbox-mint-contrib/redbox-web-service.git</connection>
+		<developerConnection>scm:git:https://github.com/redbox-mint-contrib/redbox-web-service.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm> 
 </project>
