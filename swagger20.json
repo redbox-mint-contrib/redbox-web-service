@@ -1,0 +1,708 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Web Service that allows interaction with ReDBox records",
+    "version" : "1.0",
+    "title" : "ReDBox Web Service",
+    "contact" : { }
+  },
+  "host" : "demo.redboxresearchdata.com.au",
+  "basePath" : "/redbox/api/v1",
+  "tags" : [ {
+    "name" : "datastream",
+    "description" : "Metadata about the record. An object typically contains many datastreams. They can be of any media type."
+  }, {
+    "name" : "info",
+    "description" : "Information about the ReDBox instance. Includes information about:\n* the institution the instance belongs to\n* the application version\n* the package types supported by this instance"
+  }, {
+    "name" : "messaging",
+    "description" : "This endpoint allows the client to queue messages for asynchronous processing"
+  }, {
+    "name" : "object",
+    "description" : "Endpoints that allow a client to create and delete ReDBox objects"
+  }, {
+    "name" : "objectmeta",
+    "description" : "Endpoints to manipulate the records object metadata. It’s metadata datastream that contains control information about the object (e.g. the owner of the object, what indexation script (rules) to use etc). The datastream ID for this metadata is TF-OBJ-META."
+  }, {
+    "name" : "recordmeta",
+    "description" : "Endpoints to manipulate the record’s metadata. A json metadata datastream that contains the principle metadata for a record. The forms in ReDBox store all their metadata in this file. The datastream ID for this metadata is metadata.json in Mint and a file that ends in .tfpackage in ReDBox\n"
+  }, {
+    "name" : "search"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/v1/datastream/{oid}" : {
+      "get" : {
+        "tags" : [ "datastream" ],
+        "summary" : "Get a datastream from a ReDBox object",
+        "description" : "Get a datastream from a ReDBox object",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "datastreamId",
+          "in" : "query",
+          "description" : "The identifier of the datastream",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : true,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The datastream is retrieved",
+            "schema" : {
+              "$ref" : "#/definitions/datastream"
+            }
+          },
+          "500" : {
+            "description" : "General Error",
+            "schema" : {
+              "$ref" : "#/definitions/Exception"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "datastream" ],
+        "summary" : "Create or update a datastream in a ReDBox object",
+        "description" : "Create or update a datastream in a ReDBox object",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "skipReindex",
+          "in" : "query",
+          "description" : "Skip the reindex process. Useful if you are batching many changes to a ReDBox object at once.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "datastreamId",
+          "in" : "query",
+          "description" : "The identifier of the datastream",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : true,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/datastream"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The datastream is created or updated",
+            "schema" : {
+              "$ref" : "#/definitions/genericRequestResponse"
+            }
+          },
+          "500" : {
+            "description" : "General Error",
+            "schema" : {
+              "$ref" : "#/definitions/Exception"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "datastream" ],
+        "summary" : "Delete a datastream in a ReDBox object",
+        "description" : "Delete a datastream in a ReDBox object",
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "skipReindex",
+          "in" : "query",
+          "description" : "Skip the reindex process. Useful if you are batching many changes to a ReDBox object at once.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "datastreamId",
+          "in" : "query",
+          "description" : "The identifier of the datastream",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : true,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "/v1/datastream/{oid}/list" : {
+      "get" : {
+        "tags" : [ "datastream" ],
+        "summary" : "List datastreams in an object",
+        "description" : "List datastreams in an object",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The datastream names are listed",
+            "schema" : {
+              "$ref" : "#/definitions/datastreamListResponse"
+            }
+          },
+          "500" : {
+            "description" : "Oid does not exist in storage",
+            "schema" : {
+              "$ref" : "#/definitions/StorageException"
+            }
+          }
+        }
+      }
+    },
+    "/v1/info" : {
+      "get" : {
+        "tags" : [ "info" ],
+        "summary" : "get information about the ReDBox instance",
+        "description" : "get information about the ReDBox instance",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "The datastreams are listed",
+            "schema" : {
+              "$ref" : "#/definitions/serverInfoResponse"
+            }
+          },
+          "500" : {
+            "description" : "Server configuration not found",
+            "schema" : {
+              "$ref" : "#/definitions/IOException"
+            }
+          }
+        }
+      }
+    },
+    "/v1/messaging/{messageQueue}" : {
+      "post" : {
+        "tags" : [ "messaging" ],
+        "summary" : "Queues a message on the specified message queue",
+        "description" : "Queues a message on the specified message queue",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "messageQueue",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : true,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/queueMessage"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The record's metadata is updated",
+            "schema" : {
+              "$ref" : "#/definitions/genericRequestResponse"
+            }
+          },
+          "500" : {
+            "description" : "General Error",
+            "schema" : {
+              "$ref" : "#/definitions/Exception"
+            }
+          }
+        }
+      }
+    },
+    "/v1/object/{oid}/delete" : {
+      "delete" : {
+        "tags" : [ "object" ],
+        "summary" : "Delete an existing ReDBox object",
+        "description" : "Delete an existing ReDBox object",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : true,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The object is deleted",
+            "schema" : {
+              "$ref" : "#/definitions/genericRequestResponse"
+            }
+          },
+          "500" : {
+            "description" : "General Error",
+            "schema" : {
+              "$ref" : "#/definitions/Exception"
+            }
+          }
+        }
+      }
+    },
+    "/v1/object/{packageType}" : {
+      "post" : {
+        "tags" : [ "object" ],
+        "summary" : "create a new ReDBox Object",
+        "description" : "create a new ReDBox Object",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "packageType",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "skipReindex",
+          "in" : "query",
+          "description" : "Skip the reindex process. Useful if you are batching many changes to a ReDBox object at once.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "oid",
+          "in" : "query",
+          "description" : "The desired object identifier. If not supplied, one will be randomly generated",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : true,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "An object is created",
+            "schema" : {
+              "$ref" : "#/definitions/genericRequestResponse"
+            }
+          },
+          "500" : {
+            "description" : "General Error",
+            "schema" : {
+              "$ref" : "#/definitions/Exception"
+            }
+          }
+        }
+      }
+    },
+    "/v1/objectmetadata/{oid}" : {
+      "get" : {
+        "tags" : [ "objectmeta" ],
+        "summary" : "gets the record's Object Metadata",
+        "description" : "gets the record's Object Metadata",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : true,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The object metadata is returned",
+            "schema" : {
+              "$ref" : "#/definitions/objectMetadataJson"
+            }
+          },
+          "500" : {
+            "description" : "General Error",
+            "schema" : {
+              "$ref" : "#/definitions/Exception"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "objectmeta" ],
+        "summary" : "updates the record's Object Metadata",
+        "description" : "updates the record's Object Metadata",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "skipReindex",
+          "in" : "query",
+          "description" : "Skip the reindex process. Useful if you are batching many changes to a ReDBox object at once.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : true,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/objectMetadataJson"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The object metadata is updated",
+            "schema" : {
+              "$ref" : "#/definitions/genericRequestResponse"
+            }
+          },
+          "500" : {
+            "description" : "General Error",
+            "schema" : {
+              "$ref" : "#/definitions/Exception"
+            }
+          }
+        }
+      }
+    },
+    "/v1/recordmetadata/{oid}" : {
+      "get" : {
+        "tags" : [ "recordmeta" ],
+        "summary" : "gets the record's metadata",
+        "description" : "gets the record's metadata",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : true,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The record's metadata is returned",
+            "schema" : {
+              "$ref" : "#/definitions/recordMetadataJson"
+            }
+          },
+          "500" : {
+            "description" : "General Error",
+            "schema" : {
+              "$ref" : "#/definitions/Exception"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "recordmeta" ],
+        "summary" : "updates the record's metadata",
+        "description" : "updates the record's metadata",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "oid",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "skipReindex",
+          "in" : "query",
+          "description" : "Skip the reindex process. Useful if you are batching many changes to a ReDBox object at once.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : true,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/recordMetadataJson"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The record's metadata is updated",
+            "schema" : {
+              "$ref" : "#/definitions/genericRequestResponse"
+            }
+          },
+          "500" : {
+            "description" : "General Error",
+            "schema" : {
+              "$ref" : "#/definitions/Exception"
+            }
+          }
+        }
+      }
+    },
+    "/v1/search" : {
+      "get" : {
+        "tags" : [ "search" ],
+        "summary" : "Search ReDBox's search index",
+        "description" : "Search ReDBox's search index",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : true,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Search results returned",
+            "schema" : {
+              "$ref" : "#/definitions/solrResponse"
+            }
+          },
+          "500" : {
+            "description" : "General Error",
+            "schema" : {
+              "$ref" : "#/definitions/Exception"
+            }
+          }
+        }
+      }
+    },
+    "/v1/search/{index}" : {
+      "get" : {
+        "tags" : [ "search" ],
+        "summary" : "Search ReDBox's search index",
+        "description" : "Search ReDBox's search index",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "index",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "Authorization",
+          "in" : "header",
+          "required" : false,
+          "type" : "string",
+          "x-example" : "Authorization: Bearer xxxxxxxxxxx"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Search results returned",
+            "schema" : {
+              "$ref" : "#/definitions/solrResponse"
+            }
+          },
+          "500" : {
+            "description" : "General Error",
+            "schema" : {
+              "$ref" : "#/definitions/Exception"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Exception" : {
+      "type" : "object",
+      "description" : "Java type: java.lang.Exception"
+    },
+    "IOException" : {
+      "type" : "object",
+      "description" : "Java type: java.io.IOException"
+    },
+    "StorageException" : {
+      "type" : "object",
+      "description" : "Java type: com.googlecode.fascinator.api.storage.StorageException"
+    },
+    "anonymousRepresentation5" : {
+      "type" : "object"
+    },
+    "datastreamListResponse" : {
+      "type" : "object",
+      "properties" : {
+        "datastreamIds" : {
+          "type" : "array",
+          "description" : "The list of datastream names.",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "List of the datastream names for the object"
+    },
+    "genericRequestResponse" : {
+      "type" : "object",
+      "required" : [ "code" ],
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "The HTTP response code for the request."
+        },
+        "oid" : {
+          "type" : "string",
+          "description" : "The oid of the record. Not present when the request was not an action on a record."
+        }
+      },
+      "description" : "The common response json that is given by many API calls"
+    },
+    "objectMetadataJson" : {
+      "type" : "object",
+      "description" : "JSON object consisting of key/value pairs that map to the java.util.Properties key/values present in the TF-OBJ-META datastream"
+    },
+    "queueMessage" : {
+      "type" : "object"
+    },
+    "recordMetadataJson" : {
+      "type" : "object",
+      "description" : "JSON that represents the record's metadata. This datastream is named metadata.json in Mint and ends in .tfpackage in ReDBox."
+    },
+    "serverInfoResponse" : {
+      "type" : "object",
+      "required" : [ "applicationVersion", "institution", "packageTypes" ],
+      "properties" : {
+        "applicationVersion" : {
+          "type" : "string"
+        },
+        "institution" : {
+          "type" : "string",
+          "description" : "The institution name for this instance"
+        },
+        "packageTypes" : {
+          "type" : "array",
+          "description" : "List of all the package type names in the system",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "solrResponse" : {
+      "type" : "object",
+      "required" : [ "responseHeader" ],
+      "properties" : {
+        "responseHeader" : {
+          "type" : "object",
+          "properties" : {
+            "QTime" : {
+              "type" : "integer",
+              "format" : "int32"
+            },
+            "params" : {
+              "type" : "object",
+              "properties" : {
+                "ft" : {
+                  "type" : "string"
+                },
+                "indent" : {
+                  "type" : "string"
+                },
+                "q" : {
+                  "type" : "string"
+                },
+                "rows" : {
+                  "type" : "string"
+                },
+                "start" : {
+                  "type" : "string"
+                },
+                "version" : {
+                  "type" : "string"
+                },
+                "wt" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "response" : {
+              "type" : "object",
+              "properties" : {
+                "docs" : {
+                  "type" : "array",
+                  "items" : {
+                    "type" : "object",
+                    "properties" : { }
+                  }
+                },
+                "numFound" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                },
+                "start" : {
+                  "type" : "integer",
+                  "format" : "int32"
+                }
+              },
+              "required" : [ "docs", "numFound", "start" ]
+            },
+            "status" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          },
+          "required" : [ "QTime", "params", "response", "status" ]
+        }
+      },
+      "description" : "The response JSON from the application's Apache Solr."
+    }
+  }
+}

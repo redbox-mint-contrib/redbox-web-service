@@ -39,8 +39,17 @@ public class ApiKeyTokenService {
 		if(!apiKeysFile.exists()) {
 			return;
 		}
-		JsonObject apiKeyJson = new JsonSimple(apiKeysFile).getJsonObject();
-		authorizedKeyMap =  Collections.synchronizedMap(apiKeyJson);
+		JsonSimple apiKeyJson = new JsonSimple(apiKeysFile);
+		JSONArray clients = apiKeyJson.getArray("api", "clients");
+
+		Map authorizedKeyMap = new HashMap();
+		if (clients != null) {
+			for (Object client : clients) {
+				JsonObject clientObject = (JsonObject) client;
+				authorizedKeyMap.put((String) clientObject.get("apiKey"), (String) clientObject.get("username"));
+			}
+		}
+		this.authorizedKeyMap =  Collections.synchronizedMap(authorizedKeyMap);
 	}
 
 	@SuppressWarnings("rawtypes")
