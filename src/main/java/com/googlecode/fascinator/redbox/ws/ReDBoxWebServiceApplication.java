@@ -13,6 +13,7 @@ import com.googlecode.fascinator.common.JsonSimpleConfig;
 import com.googlecode.fascinator.redbox.ws.security.TokenBasedVerifier;
 import com.googlecode.fascinator.redbox.ws.v1.resources.DatastreamResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.DeleteObjectResource;
+import com.googlecode.fascinator.redbox.ws.v1.resources.HarvestResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.InfoResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.ListDatastreamResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.ObjectMetadataResource;
@@ -31,18 +32,11 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 		guard.setVerifier(verifier);
 		Router baseRouter = new Router(getContext());
 
+		Router privateRouter = new Router(getContext());
 		// Define the v1 API routes
-		Router privateV1Router = new Router(getContext());
-		privateV1Router.attach("/v1/recordmetadata/{oid}", RecordMetadataResource.class);
-		privateV1Router.attach("/v1/objectmetadata/{oid}", ObjectMetadataResource.class);
-		privateV1Router.attach("/v1/datastream/{oid}/list", ListDatastreamResource.class);
-		privateV1Router.attach("/v1/datastream/{oid}", DatastreamResource.class);
-		privateV1Router.attach("/v1/object/{packageType}", ObjectResource.class);
-		privateV1Router.attach("/v1/object/{oid}/delete", DeleteObjectResource.class);
-		privateV1Router.attach("/v1/info", InfoResource.class);
-		privateV1Router.attach("/v1/search", SearchResource.class);
-		privateV1Router.attach("/v1/search/{index}", SearchByIndexResource.class);
-		privateV1Router.attach("/v1/messaging/{messageQueue}", QueueMessageResource.class);
+		defineV1Routes(privateRouter);
+		defineV1_1Routes(privateRouter);
+		
 		String apiPath = "http://localhost:9000/redbox/api/v1";
 		try {
 			JsonSimpleConfig config = new JsonSimpleConfig();
@@ -54,9 +48,38 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 		swagger2SpecificationRestlet.setBasePath(apiPath);
 		swagger2SpecificationRestlet.attach(baseRouter);
 
-		guard.setNext(privateV1Router);
+		guard.setNext(privateRouter);
 		baseRouter.attach(guard);
 		return baseRouter;
+	}
+
+	private void defineV1_1Routes(Router router) {
+
+		router.attach("/v1.1/recordmetadata/{oid}", RecordMetadataResource.class);
+		router.attach("/v1.1/objectmetadata/{oid}", ObjectMetadataResource.class);
+		router.attach("/v1.1/datastream/{oid}/list", ListDatastreamResource.class);
+		router.attach("/v1.1/datastream/{oid}", DatastreamResource.class);
+		router.attach("/v1.1/object/{packageType}", ObjectResource.class);
+		router.attach("/v1.1/object/{oid}/delete", DeleteObjectResource.class);
+		router.attach("/v1.1/info", InfoResource.class);
+		router.attach("/v1.1/search", SearchResource.class);
+		router.attach("/v1.1/search/{index}", SearchByIndexResource.class);
+		router.attach("/v1.1/messaging/{messageQueue}", QueueMessageResource.class);
+		router.attach("/v1.1/harvest/{packageType}", HarvestResource.class);
+
+	}
+
+	private void defineV1Routes(Router router) {
+		router.attach("/v1/recordmetadata/{oid}", RecordMetadataResource.class);
+		router.attach("/v1/objectmetadata/{oid}", ObjectMetadataResource.class);
+		router.attach("/v1/datastream/{oid}/list", ListDatastreamResource.class);
+		router.attach("/v1/datastream/{oid}", DatastreamResource.class);
+		router.attach("/v1/object/{packageType}", ObjectResource.class);
+		router.attach("/v1/object/{oid}/delete", DeleteObjectResource.class);
+		router.attach("/v1/info", InfoResource.class);
+		router.attach("/v1/search", SearchResource.class);
+		router.attach("/v1/search/{index}", SearchByIndexResource.class);
+		router.attach("/v1/messaging/{messageQueue}", QueueMessageResource.class);
 	}
 
 	@Override
