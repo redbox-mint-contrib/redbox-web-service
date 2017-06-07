@@ -290,5 +290,7 @@ public class HarvestResource extends RedboxServerResource {
 		return DigestUtils.md5Hex(
 				"SomeRandomPrefix:" + String.valueOf(System.currentTimeMillis()) + String.valueOf(Math.random()));
 	}
+	
+	
 
 }

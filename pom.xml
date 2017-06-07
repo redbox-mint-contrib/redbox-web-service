@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.googlecode.redbox-mint</groupId>
 	<artifactId>redbox-web-service</artifactId>
@@ -80,6 +81,12 @@
 			<scope>test</scope>
 			<version>4.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.3.1</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>
@@ -102,5 +109,5 @@
 		<connection>scm:git://github.com/redbox-mint-contrib/redbox-web-service.git</connection>
 		<developerConnection>scm:git:https://github.com/redbox-mint-contrib/redbox-web-service.git</developerConnection>
 		<tag>HEAD</tag>
-	</scm> 
+	</scm>
 </project>

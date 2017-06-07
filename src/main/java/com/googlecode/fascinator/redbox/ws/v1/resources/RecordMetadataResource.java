@@ -7,6 +7,8 @@ import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.googlecode.fascinator.api.PluginException;
 import com.googlecode.fascinator.api.storage.DigitalObject;
 import com.googlecode.fascinator.api.storage.Payload;
@@ -27,6 +29,12 @@ import com.wordnik.swagger.annotations.ApiResponses;
 @Api(value = "recordmetadata", description = "Operations that work with an record's metadata")
 public class RecordMetadataResource extends RedboxServerResource {
 
+	private Gson gson; 
+	
+	public RecordMetadataResource() {
+		gson = new GsonBuilder().create();
+	}
+	
 	@ApiOperation(value = "gets the record's metadata", tags = "recordmeta")
 	@ApiResponses({ @ApiResponse(code = 200, message = "The record's metadata is returned"),
 			@ApiResponse(code = 500, message = "General Error", response = Exception.class) })
@@ -44,8 +52,8 @@ public class RecordMetadataResource extends RedboxServerResource {
 		}
 		Payload payload = digitalObject.getPayload(payloadId);
 		JsonSimple metadataObject = new JsonSimple(payload.open());
-
-		return metadataObject.toString(true);
+		
+		return gson.toJson(metadataObject.getJsonObject());
 	}
 
 	@ApiOperation(value = "updates the record's metadata", tags = "recordmeta")
