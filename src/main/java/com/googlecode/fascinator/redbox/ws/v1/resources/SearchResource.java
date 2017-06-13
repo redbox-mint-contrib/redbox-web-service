@@ -4,16 +4,17 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.fusesource.hawtbuf.ByteArrayInputStream;
 import org.restlet.data.Form;
 import org.restlet.data.Parameter;
-import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.representation.Representation;
+import org.restlet.representation.StringRepresentation;
 import org.restlet.resource.Get;
 
 import com.googlecode.fascinator.api.indexer.Indexer;
 import com.googlecode.fascinator.api.indexer.IndexerException;
 import com.googlecode.fascinator.api.indexer.SearchRequest;
-import com.googlecode.fascinator.common.JsonSimple;
 import com.googlecode.fascinator.spring.ApplicationContextProvider;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -29,21 +30,27 @@ public class SearchResource extends RedboxServerResource {
         @ApiResponse(code = 500, message = "General Error", response = Exception.class)
 	})
 	@Get
-	public JsonRepresentation searchIndex() throws IndexerException, IOException{
+	public Representation searchIndex() throws IndexerException, IOException{
 		Indexer indexer = (Indexer) ApplicationContextProvider.getApplicationContext().getBean("fascinatorIndexer");
 		String query = getQueryValue("q");
+		String responseFormat = getQueryValue("wt");
+		//default solr response to json
+		if(StringUtils.isBlank(responseFormat)) {
+			responseFormat = "json";
+		}
 		SearchRequest request = new SearchRequest(query);
+		request.addParam("wt", responseFormat);
 		Form form = getQuery();
 		Iterator<Parameter> formInterator = form.iterator();
 		while(formInterator.hasNext()) {
 			Parameter param = formInterator.next();
-			if(!"q".equals(param.getName())){
+			if(!"q".equals(param.getName()) && !"wt".equals(param.getName())){
 				request.addParam(param.getName(), param.getValue());
 			}
 		}
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		indexer.search(request, byteArrayOutputStream);
-		return new JsonRepresentation(new JsonSimple(new ByteArrayInputStream(byteArrayOutputStream.toByteArray())).toString());
+		return new StringRepresentation(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()).toString());
 	}
 
 
