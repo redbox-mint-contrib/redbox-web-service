@@ -50,7 +50,7 @@ public class SearchResource extends RedboxServerResource {
 		}
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		indexer.search(request, byteArrayOutputStream);
-		return new StringRepresentation(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()).toString());
+		return new StringRepresentation(new String(byteArrayOutputStream.toByteArray()));
 	}
 
 
