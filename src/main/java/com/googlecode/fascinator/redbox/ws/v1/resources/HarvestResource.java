@@ -45,7 +45,7 @@ public class HarvestResource extends RedboxServerResource {
 
 	private Storage storage;
 	private HarvestFileMapService harvestFileMapService;
-	private Logger log = LoggerFactory.getLogger(FascinatorWebSecurityExpressionRoot.class);
+	private Logger log = LoggerFactory.getLogger(HarvestResource.class);
 
 	public HarvestResource() {
 		storage = (Storage) ApplicationContextProvider.getApplicationContext().getBean("fascinatorStorage");
@@ -132,7 +132,7 @@ public class HarvestResource extends RedboxServerResource {
 		StorageUtils.createOrUpdatePayload(recordObject, payloadId,
 				IOUtils.toInputStream(recordMetadata.toString(), "utf-8"));
 
-		reindex(storageId);
+		reindex(storageId,getRulesConfigObject(getRulesConfigFile(packageType)), storage);
 
 		responseObject.put("status", "success");
 		responseObject.put("oid", storageId);
@@ -152,28 +152,27 @@ public class HarvestResource extends RedboxServerResource {
 	private Properties setObjectMetadata(DigitalObject recordObject, JsonObject record, String packageType,
 			boolean created) throws IOException, StorageException {
 		Properties objectMetadata = recordObject.getMetadata();
-		JsonSimpleConfig config = new JsonSimpleConfig();
-		String harvestPath = "harvest/workflows/";
-		String repositoryName = "ReDBox";
-
-		String rulesConfig = config.getString(null, "portal", "packageTypes", packageType, "jsonconfig");
-
-		if ("mint".equals(config.getString(null, "system"))) {
-			harvestPath = "harvest/";
-			repositoryName = "Mint";
-			rulesConfig = packageType + ".json";
-		}
+		
 
 		if (created) {
-			File rulesConfigFile = FascinatorHome.getPathFile(harvestPath + rulesConfig);
+			
+			File rulesConfigFile = getRulesConfigFile(packageType);
+			DigitalObject  rulesConfigObject = getRulesConfigObject(rulesConfigFile);
+			JsonSimpleConfig config = new JsonSimpleConfig();
+			String repositoryName = "ReDBox";
+
+			
+
+			if ("mint".equals(config.getString(null, "system"))) {
+				repositoryName = "Mint";
+			}
+			
+			
 			JsonSimple rulesConfigJson = new JsonSimple(rulesConfigFile);
-			String rulesScript = rulesConfigJson.getString(null, "indexer", "script", "rules");
 			String scriptType = rulesConfigJson.getString(null, "indexer", "script", "type");
 
-			File rulesScriptFile = FascinatorHome.getPathFile(harvestPath + rulesScript);
-
-			DigitalObject rulesConfigObject = harvestFileMapService.get(rulesConfigFile);
-			DigitalObject rulesObject = harvestFileMapService.get(rulesScriptFile);
+			DigitalObject rulesObject = getRulesObject(rulesConfigFile);
+			
 			objectMetadata.put("objectId", recordObject.getId());
 			objectMetadata.put("render-pending", "true");
 			objectMetadata.put("owner", "admin");
@@ -210,6 +209,44 @@ public class HarvestResource extends RedboxServerResource {
 				IOUtils.toInputStream(new String(outStream.toByteArray()), "utf-8"));
 
 		return objectMetadata;
+	}
+
+	private DigitalObject getRulesObject(File rulesConfigFile) throws IOException, StorageException {
+		JsonSimpleConfig config = new JsonSimpleConfig();
+		String harvestPath = "harvest/workflows/";
+		
+
+		if ("mint".equals(config.getString(null, "system"))) {
+			harvestPath = "harvest/";
+		}
+		
+		JsonSimple rulesConfigJson = new JsonSimple(rulesConfigFile);
+		String rulesScript = rulesConfigJson.getString(null, "indexer", "script", "rules");
+
+		File rulesScriptFile = FascinatorHome.getPathFile(harvestPath + rulesScript);
+		
+		return harvestFileMapService.get(rulesScriptFile);
+	}
+
+	private DigitalObject getRulesConfigObject(File rulesConfigFile) throws IOException, StorageException {
+		
+		return harvestFileMapService.get(rulesConfigFile);
+	}
+
+	private File getRulesConfigFile(String packageType) throws IOException {
+		JsonSimpleConfig config = new JsonSimpleConfig();
+		String harvestPath = "harvest/workflows/";
+		
+
+		String rulesConfig = config.getString(null, "portal", "packageTypes", packageType, "jsonconfig");
+
+		if ("mint".equals(config.getString(null, "system"))) {
+			harvestPath = "harvest/";
+			rulesConfig = packageType + ".json";
+		}
+		
+		
+		return FascinatorHome.getPathFile(harvestPath + rulesConfig);
 	}
 
 	private JsonObject validateRecord(JsonObject record) {
