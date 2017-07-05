@@ -2,6 +2,7 @@ package com.googlecode.fascinator.redbox.ws.v1.resources;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 
 import org.apache.commons.lang3.StringUtils;
@@ -50,7 +51,7 @@ public class SearchResource extends RedboxServerResource {
 		}
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		indexer.search(request, byteArrayOutputStream);
-		return new StringRepresentation(new String(byteArrayOutputStream.toByteArray()));
+		return new StringRepresentation(new String(byteArrayOutputStream.toByteArray(),Charset.forName("utf-8")));
 	}
 
 
