@@ -9,24 +9,24 @@
 	<parent>
 		<groupId>com.googlecode.redbox-mint</groupId>
 		<artifactId>redbox-project</artifactId>
-		<version>1.8</version>
+		<version>1.9</version>
 	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>com.googlecode.the-fascinator</groupId>
 			<artifactId>fascinator-core</artifactId>
-			<version>1.4.0.1-SNAPSHOT</version>
+			<version>1.5</version>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.the-fascinator</groupId>
 			<artifactId>fascinator-common</artifactId>
-			<version>1.4</version>
+			<version>1.5</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.the-fascinator</groupId>
 			<artifactId>fascinator-portal</artifactId>
-			<version>1.4</version>
+			<version>1.5</version>
 			<classifier>classes</classifier>
 			<scope>provided</scope>
 		</dependency>
