@@ -1,0 +1,16 @@
+config:
+  target: 'http://localhost:9000'
+  phases:
+    - arrivalCount: 1
+      duration: 1
+  processor: './dist/index.js'
+scenarios:
+  - name: "Create DMP record"
+    flow:
+      - loop:
+          - post:
+              url: '/redbox/api/v1/object/rdmp'
+              headers:
+                Authorization: "Bearer 18f344b4-81a9-43b9-8916-4bbf339e8765"
+              beforeRequest: "setJSONBody"
+        count: 100

@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "declaration": true,
+    "outDir": "./dist",
+    "strict": true
+  },
+  "include": [
+    "./*.ts"
+  ],
+  "compileOnSave": true,
+  "atom": {
+      "rewriteTsconfig": false
+  }
+}

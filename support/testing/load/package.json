@@ -1,0 +1,19 @@
+{
+  "name": "redbox-web-service-api-tester",
+  "version": "1.0.0",
+  "description": "ReDBox API Web Service Load Tester (http://redboxresearchdata.com.au)",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shilo Banihit",
+  "license": "GPL-2.0",
+  "dependencies": {
+    "faker": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^9.4.6",
+    "typescript": "^2.7.2"
+  }
+}
