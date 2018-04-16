@@ -36,6 +36,7 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 		// Define the v1 API routes
 		defineV1Routes(privateRouter);
 		defineV1_1Routes(privateRouter);
+		defineV2Routes(privateRouter);
 		
 		String apiPath = "http://localhost:9000/redbox/api/v1";
 		try {
@@ -66,7 +67,6 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 		router.attach("/v1.1/search/{index}", SearchByIndexResource.class);
 		router.attach("/v1.1/messaging/{messageQueue}", QueueMessageResource.class);
 		router.attach("/v1.1/harvest/{packageType}", HarvestResource.class);
-
 	}
 
 	private void defineV1Routes(Router router) {
@@ -80,6 +80,23 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 		router.attach("/v1/search", SearchResource.class);
 		router.attach("/v1/search/{index}", SearchByIndexResource.class);
 		router.attach("/v1/messaging/{messageQueue}", QueueMessageResource.class);
+	}
+	
+	private void defineV2Routes(Router router) {
+
+		router.attach("/v2/recordmetadata/{oid}", RecordMetadataResource.class);
+		router.attach("/v2/objectmetadata/{oid}", ObjectMetadataResource.class);
+		router.attach("/v2/datastream/{oid}/list", ListDatastreamResource.class);
+		router.attach("/v2/datastream/{oid}", DatastreamResource.class);
+		router.attach("/v2/object/{packageType}", ObjectResource.class);
+		router.attach("/v2/object/{oid}/delete", DeleteObjectResource.class);
+		router.attach("/v2/info", InfoResource.class);
+		router.attach("/v2/search", SearchResource.class);
+		router.attach("/v2/search/{index}", SearchByIndexResource.class);
+		router.attach("/v2/query", com.googlecode.fascinator.redbox.ws.v2.resources.QueryResource.class);
+		router.attach("/v2/messaging/{messageQueue}", QueueMessageResource.class);
+		router.attach("/v2/harvest/{packageType}", HarvestResource.class);
+
 	}
 
 	@Override

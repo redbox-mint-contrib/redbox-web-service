@@ -6,7 +6,6 @@ import java.nio.charset.Charset;
 import java.util.Iterator;
 
 import org.apache.commons.lang3.StringUtils;
-import org.fusesource.hawtbuf.ByteArrayInputStream;
 import org.restlet.data.Form;
 import org.restlet.data.Parameter;
 import org.restlet.representation.Representation;
@@ -25,6 +24,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 @Api(value = "search", description="Search ReDBox's search index")
 public class SearchResource extends RedboxServerResource {
 
+	
 	@ApiOperation(value = "Search ReDBox's search index", tags = "search")
 	@ApiResponses({
         @ApiResponse(code = 200, message = "Search results returned"),
@@ -53,6 +53,7 @@ public class SearchResource extends RedboxServerResource {
 		indexer.search(request, byteArrayOutputStream);
 		return new StringRepresentation(new String(byteArrayOutputStream.toByteArray(),Charset.forName("utf-8")));
 	}
+	
 
 
 
