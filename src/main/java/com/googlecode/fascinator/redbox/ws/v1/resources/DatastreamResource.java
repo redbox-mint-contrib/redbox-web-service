@@ -15,6 +15,8 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
+import org.restlet.resource.Patch;
+import org.restlet.resource.Put;
 import org.restlet.resource.ResourceException;
 
 import com.googlecode.fascinator.api.PluginException;
@@ -91,6 +93,38 @@ public class DatastreamResource extends RedboxServerResource {
 		}
 
 	}
+	
+	@ApiOperation(value = "Create or update a series of datastreams in a ReDBox object. The endpoint expects the dastreamId as the field name of the incoming stream.", tags = "datastream")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "skipReindex", value="Skip the reindex process. Useful if you are batching many changes to a ReDBox object at once.", required = false, allowMultiple = false, defaultValue = "false", dataType = "string")
+	})
+	@ApiResponses({ @ApiResponse(code = 200, message = "The datastreams are created or updated"),
+	@ApiResponse(code = 500, message = "General Error", response = Exception.class) })
+	@Put
+	public String updateDatastreams(Representation entity)
+			throws FileUploadException, IOException, PluginException, MessagingException {
+
+		if (entity != null && MediaType.MULTIPART_FORM_DATA.equals(entity.getMediaType(), true)) {
+			Storage storage = (Storage) ApplicationContextProvider.getApplicationContext().getBean("fascinatorStorage");
+			String oid = getAttribute("oid");
+			DigitalObject digitalObject = StorageUtils.getDigitalObject(storage, oid);
+
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			factory.setSizeThreshold(1000240);
+			RestletFileUpload upload = new RestletFileUpload(factory);
+			FileItemIterator fileIterator = upload.getItemIterator(entity);
+			while (fileIterator.hasNext()) {
+				FileItemStream fi = fileIterator.next();
+				String payloadId = fi.getFieldName();
+				StorageUtils.createOrUpdatePayload(digitalObject, payloadId, fi.openStream());
+			}
+			reindex(oid);
+			return getSuccessResponseString(oid);
+		} else {
+			throw new ResourceException(Status.CLIENT_ERROR_UNSUPPORTED_MEDIA_TYPE);
+		}
+
+	}
 
 	@ApiOperation(value = "Delete a datastream in a ReDBox object", tags = "datastream")
 	@ApiImplicitParams({
@@ -110,6 +144,29 @@ public class DatastreamResource extends RedboxServerResource {
 			throw new ResourceException(404, e, "Datastream does not exist in the object");
 		}
 		digitalObject.removePayload(payloadId);
+		reindex(oid);
+		return getSuccessResponseString(oid);
+	}
+	
+	@ApiOperation(value = "Delete a series of datastreams in a ReDBox object", tags = "datastream")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "skipReindex", value="Skip the reindex process. Useful if you are batching many changes to a ReDBox object at once.", required = false, allowMultiple = false, defaultValue = "false", dataType = "string"),
+		@ApiImplicitParam(name = "datastreamIds",  value="Comma delimited list of identifiers of the datastreams", required = true, allowMultiple = false, dataType = "string") })
+	@Patch
+	public String deleteDatastreams() throws FileUploadException, IOException, PluginException, MessagingException {
+		Storage storage = (Storage) ApplicationContextProvider.getApplicationContext().getBean("fascinatorStorage");
+		String oid = getAttribute("oid");
+		String[] payloadIds = getQueryValue("datastreamIds").split(",");
+		DigitalObject digitalObject = StorageUtils.getDigitalObject(storage, oid);
+		for (String payloadId : payloadIds) {
+			try {
+				@SuppressWarnings("unused")
+				Payload payload = digitalObject.getPayload(payloadId);
+			} catch (StorageException e) {
+				throw new ResourceException(404, e, "Datastream does not exist in the object");
+			}
+			digitalObject.removePayload(payloadId);
+		}
 		reindex(oid);
 		return getSuccessResponseString(oid);
 	}
