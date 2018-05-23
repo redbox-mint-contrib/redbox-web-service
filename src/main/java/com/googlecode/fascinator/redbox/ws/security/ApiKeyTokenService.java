@@ -10,12 +10,15 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONArray;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.googlecode.fascinator.common.FascinatorHome;
 import com.googlecode.fascinator.common.JsonObject;
 import com.googlecode.fascinator.common.JsonSimple;
 import com.googlecode.fascinator.common.JsonSimpleConfig;
+import com.googlecode.fascinator.redbox.ws.v1.resources.HarvestResource;
 
 /**
  * Spring service to manage the authorized keys for the API
@@ -26,6 +29,8 @@ import com.googlecode.fascinator.common.JsonSimpleConfig;
 @Component(value = "apiKeyTokenService")
 public class ApiKeyTokenService {
 
+	private Logger log = LoggerFactory.getLogger(FascinatorHome.class);
+	
 	private static final String SECURITY_APIKEYS_JSON_PATH = "security/apikeys.json";
 	@SuppressWarnings("rawtypes")
 	Map authorizedKeyMap = new HashMap();
@@ -39,13 +44,21 @@ public class ApiKeyTokenService {
 	 */
 	public ApiKeyTokenService() throws IOException {
 		JsonSimpleConfig sysconfig = new JsonSimpleConfig();
+		
 		String apiKeyFilePath = sysconfig.getString(FascinatorHome.getPath(SECURITY_APIKEYS_JSON_PATH), "api",
 				"apiKeyFile");
+		log.error("API Key file path is: " + apiKeyFilePath);
 		this.apiKeysFile = new File(apiKeyFilePath);
 
 		if (!this.apiKeysFile.exists()) {
-			updateAndSaveKeys(new JSONArray());
+			JsonObject jsonObject = new JsonObject();
+			JsonObject apiObject = new JsonObject();
+			JSONArray clientsArray = new JSONArray();
+			apiObject.put("clients", clientsArray);
+			jsonObject.put("api", apiObject);
+			FileUtils.writeStringToFile(this.apiKeysFile, new JsonSimple(jsonObject).toString(true));
 		}
+		
 		JsonSimple apiKeyJson = new JsonSimple(apiKeysFile);
 		this.clients = apiKeyJson.getArray("api", "clients");
 
@@ -61,7 +74,9 @@ public class ApiKeyTokenService {
 		if (clients != null) {
 			for (Object client : clients) {
 				JsonObject clientObject = (JsonObject) client;
+				log.error("Entering API Key: " + (String) clientObject.get("apiKey"));
 				authorizedKeyMap.put((String) clientObject.get("apiKey"), (String) clientObject.get("username"));
+				
 			}
 		}
 		this.authorizedKeyMap = Collections.synchronizedMap(authorizedKeyMap);
