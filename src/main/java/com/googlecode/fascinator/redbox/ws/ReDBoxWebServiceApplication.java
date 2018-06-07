@@ -83,10 +83,9 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 	}
 	
 	private void defineV2Routes(Router router) {
-
 		router.attach("/v2/recordmetadata/{oid}", RecordMetadataResource.class);
 		router.attach("/v2/objectmetadata/{oid}", ObjectMetadataResource.class);
-		router.attach("/v2/datastream/{oid}/list", ListDatastreamResource.class);
+		router.attach("/v2/datastream/{oid}/list", com.googlecode.fascinator.redbox.ws.v2.resources.ListDatastreamResource.class);
 		router.attach("/v2/datastream/{oid}", DatastreamResource.class);
 		router.attach("/v2/object/{packageType}", ObjectResource.class);
 		router.attach("/v2/object/{oid}/delete", DeleteObjectResource.class);
@@ -96,7 +95,6 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 		router.attach("/v2/query", com.googlecode.fascinator.redbox.ws.v2.resources.QueryResource.class);
 		router.attach("/v2/messaging/{messageQueue}", QueueMessageResource.class);
 		router.attach("/v2/harvest/{packageType}", HarvestResource.class);
-
 	}
 
 	@Override
