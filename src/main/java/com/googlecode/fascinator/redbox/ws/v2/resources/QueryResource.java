@@ -2,8 +2,6 @@ package com.googlecode.fascinator.redbox.ws.v2.resources;
 
 import java.io.IOException;
 
-import org.bson.Document;
-import org.json.simple.JSONArray;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
@@ -12,13 +10,10 @@ import org.restlet.resource.Post;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.googlecode.fascinator.api.indexer.IndexerException;
-import com.googlecode.fascinator.api.storage.Storage;
 import com.googlecode.fascinator.common.JsonObject;
-import com.googlecode.fascinator.common.JsonSimple;
 import com.googlecode.fascinator.common.storage.impl.SpringStorageWrapper;
 import com.googlecode.fascinator.redbox.ws.v1.resources.RedboxServerResource;
 import com.googlecode.fascinator.spring.ApplicationContextProvider;
-import com.mongodb.client.FindIterable;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;

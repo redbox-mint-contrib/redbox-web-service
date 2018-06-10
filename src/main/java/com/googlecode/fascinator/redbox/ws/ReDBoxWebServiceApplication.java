@@ -22,6 +22,7 @@ import com.googlecode.fascinator.redbox.ws.v1.resources.QueueMessageResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.RecordMetadataResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.SearchByIndexResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.SearchResource;
+import com.googlecode.fascinator.redbox.ws.v2.resources.RecordRelationshipsResource;
 
 public class ReDBoxWebServiceApplication extends SwaggerApplication {
 	@Override
@@ -95,6 +96,8 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 		router.attach("/v2/query", com.googlecode.fascinator.redbox.ws.v2.resources.QueryResource.class);
 		router.attach("/v2/messaging/{messageQueue}", QueueMessageResource.class);
 		router.attach("/v2/harvest/{packageType}", HarvestResource.class);
+		router.attach("/v2/recordmetadata/{oid}/relationships", RecordRelationshipsResource.class);
+
 	}
 
 	@Override

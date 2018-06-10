@@ -7,13 +7,10 @@ import org.json.simple.JSONArray;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.resource.Get;
 
-import com.googlecode.fascinator.api.storage.DigitalObject;
 import com.googlecode.fascinator.api.storage.PayloadType;
-import com.googlecode.fascinator.api.storage.Storage;
 import com.googlecode.fascinator.api.storage.StorageException;
 import com.googlecode.fascinator.common.JsonObject;
 import com.googlecode.fascinator.common.JsonSimple;
-import com.googlecode.fascinator.common.storage.StorageUtils;
 import com.googlecode.fascinator.common.storage.impl.SpringStorageWrapper;
 import com.googlecode.fascinator.redbox.ws.v1.resources.RedboxServerResource;
 import com.googlecode.fascinator.spring.ApplicationContextProvider;
