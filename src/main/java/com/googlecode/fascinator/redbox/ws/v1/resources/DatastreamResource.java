@@ -6,16 +6,15 @@ import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.io.IOUtils;
 import org.restlet.data.MediaType;
 import org.restlet.data.Status;
 import org.restlet.ext.fileupload.RestletFileUpload;
-import org.restlet.representation.ByteArrayRepresentation;
+import org.restlet.representation.InputRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
-import org.restlet.resource.Post;
 import org.restlet.resource.Patch;
+import org.restlet.resource.Post;
 import org.restlet.resource.Put;
 import org.restlet.resource.ResourceException;
 
@@ -53,7 +52,7 @@ public class DatastreamResource extends RedboxServerResource {
 				DigitalObject digitalObject = StorageUtils.getDigitalObject(storage, oid);
 				Payload payload = digitalObject.getPayload(payloadId);
 
-				return new ByteArrayRepresentation(IOUtils.toByteArray(payload.open()));
+				return new InputRepresentation(payload.open(), MediaType.APPLICATION_OCTET_STREAM);
 			} else {
 				throw new ResourceException(400, "Call requires a datastreamId value");
 			}
