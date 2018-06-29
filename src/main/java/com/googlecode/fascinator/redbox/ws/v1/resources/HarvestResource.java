@@ -16,6 +16,8 @@ import org.restlet.resource.Post;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.googlecode.fascinator.api.PluginException;
 import com.googlecode.fascinator.api.indexer.Indexer;
 import com.googlecode.fascinator.api.indexer.IndexerException;
@@ -30,7 +32,6 @@ import com.googlecode.fascinator.common.JsonSimpleConfig;
 import com.googlecode.fascinator.common.messaging.MessagingException;
 import com.googlecode.fascinator.common.solr.SolrResult;
 import com.googlecode.fascinator.common.storage.StorageUtils;
-import com.googlecode.fascinator.portal.security.FascinatorWebSecurityExpressionRoot;
 import com.googlecode.fascinator.redbox.ws.HarvestFileMapService;
 import com.googlecode.fascinator.spring.ApplicationContextProvider;
 import com.wordnik.swagger.annotations.Api;
@@ -46,14 +47,18 @@ public class HarvestResource extends RedboxServerResource {
 	private Storage storage;
 	private HarvestFileMapService harvestFileMapService;
 	private Logger log = LoggerFactory.getLogger(HarvestResource.class);
+	private Gson gson; 
+
+	
 
 	public HarvestResource() {
 		storage = (Storage) ApplicationContextProvider.getApplicationContext().getBean("fascinatorStorage");
 		harvestFileMapService = (HarvestFileMapService) ApplicationContextProvider.getApplicationContext()
 				.getBean("harvestFileMapService");
+		gson = new GsonBuilder().create();
 	}
 
-	@ApiOperation(value = "create a new ReDBox Object", tags = "object")
+	@ApiOperation(value = "Harvezt a set of ReDBox Objects", tags = "object")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "skipReindex", value = "Skip the reindex process. Useful if you are batching many changes to a ReDBox object at once.", required = false, allowMultiple = false, dataType = "boolean"),
 			@ApiImplicitParam(name = "oid", value = "The desired object identifier. If not supplied, one will be randomly generated", required = false, allowMultiple = false, dataType = "string") })
@@ -128,9 +133,9 @@ public class HarvestResource extends RedboxServerResource {
 			recordMetadata.put("harvestId", harvestId);
 		}
 		recordMetadata.put("packageType", packageType);
-
+		
 		StorageUtils.createOrUpdatePayload(recordObject, payloadId,
-				IOUtils.toInputStream(recordMetadata.toString(), "utf-8"));
+				IOUtils.toInputStream(gson.toJson(recordMetadata), "utf-8"));
 
 		reindex(storageId,getRulesConfigObject(getRulesConfigFile(packageType)), storage);
 
