@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.googlecode.fascinator.api.PluginException;
 import com.googlecode.fascinator.api.storage.DigitalObject;
+import com.googlecode.fascinator.api.storage.JsonDigitalObject;
 import com.googlecode.fascinator.api.storage.Storage;
 import com.googlecode.fascinator.api.storage.StorageException;
 import com.googlecode.fascinator.common.FascinatorHome;
@@ -81,7 +82,12 @@ public class ObjectResource extends RedboxServerResource {
 			oid = getOid();
 		}
 		DigitalObject recordObject = StorageUtils.getDigitalObject(storage, oid);
+		if (recordObject instanceof JsonDigitalObject) {
+			JsonDigitalObject jsonObj = (JsonDigitalObject) recordObject;
+			jsonObj.getRecordMetadata().put("packageType", packageType);
+		}
 		Properties objectMetadata = recordObject.getMetadata();
+		objectMetadata.put("packageType", packageType);
 		objectMetadata.put("objectId", oid);
 		objectMetadata.put("render-pending", "true");
 		objectMetadata.put("owner", "admin");
