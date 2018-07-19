@@ -42,6 +42,7 @@ public class QueryResource extends RedboxServerResource {
 		String collection = getQueryValue("collection");
 		String start = getQueryValue("start");
 		String rows = getQueryValue("rows");
+		String sort = getQueryValue("sort");
 
 		Integer startInt = 0;
 		if (start != null) {
@@ -54,7 +55,7 @@ public class QueryResource extends RedboxServerResource {
 		}
 		
 		JsonObject resultObject = new JsonObject();
-		JsonObject responseObject = storage.pagedQuery(collection, data.getText(), startInt, rowInt).getJsonObject();
+		JsonObject responseObject = storage.pagedQuery(collection, data.getText(), startInt, rowInt, sort).getJsonObject();
 		
 		
 		responseObject.put("start", startInt);
