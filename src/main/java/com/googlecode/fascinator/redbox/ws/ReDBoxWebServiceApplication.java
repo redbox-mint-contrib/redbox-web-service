@@ -23,6 +23,7 @@ import com.googlecode.fascinator.redbox.ws.v1.resources.RecordMetadataResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.SearchByIndexResource;
 import com.googlecode.fascinator.redbox.ws.v1.resources.SearchResource;
 import com.googlecode.fascinator.redbox.ws.v2.resources.RecordRelationshipsResource;
+import com.googlecode.fascinator.spring.ApplicationContextProvider;
 
 public class ReDBoxWebServiceApplication extends SwaggerApplication {
 	@Override
@@ -38,14 +39,14 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 		defineV1Routes(privateRouter);
 		defineV1_1Routes(privateRouter);
 		defineV2Routes(privateRouter);
-		
+
 		String apiPath = "http://localhost:9000/redbox/api/v1";
-		try {
-			JsonSimpleConfig config = new JsonSimpleConfig();
-			String urlBase = config.getString("http://localhost:9000/redbox", "urlBase");
-			apiPath = urlBase + "/api/v1";
-		} catch (IOException e) {
-		}
+
+		JsonSimpleConfig config = (JsonSimpleConfig) ApplicationContextProvider.getApplicationContext()
+				.getBean("fascinatorConfig");
+		String urlBase = config.getString("http://localhost:9000/redbox", "urlBase");
+		apiPath = urlBase + "/api/v1";
+
 		Swagger2SpecificationRestlet swagger2SpecificationRestlet = new Swagger2SpecificationRestlet(this);
 		swagger2SpecificationRestlet.setBasePath(apiPath);
 		swagger2SpecificationRestlet.attach(baseRouter);
@@ -82,11 +83,12 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 		router.attach("/v1/search/{index}", SearchByIndexResource.class);
 		router.attach("/v1/messaging/{messageQueue}", QueueMessageResource.class);
 	}
-	
+
 	private void defineV2Routes(Router router) {
 		router.attach("/v2/recordmetadata/{oid}", RecordMetadataResource.class);
 		router.attach("/v2/objectmetadata/{oid}", ObjectMetadataResource.class);
-		router.attach("/v2/datastream/{oid}/list", com.googlecode.fascinator.redbox.ws.v2.resources.ListDatastreamResource.class);
+		router.attach("/v2/datastream/{oid}/list",
+				com.googlecode.fascinator.redbox.ws.v2.resources.ListDatastreamResource.class);
 		router.attach("/v2/datastream/{oid}", DatastreamResource.class);
 		router.attach("/v2/object/{packageType}", ObjectResource.class);
 		router.attach("/v2/object/{oid}/delete", DeleteObjectResource.class);

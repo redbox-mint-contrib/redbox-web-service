@@ -107,7 +107,7 @@ public class HarvestResource extends RedboxServerResource {
 			created = true;
 		}
 
-		JsonSimpleConfig config = new JsonSimpleConfig();
+		JsonSimpleConfig config = (JsonSimpleConfig)ApplicationContextProvider.getApplicationContext().getBean("fascinatorConfig");
 		String payloadId = "metadata.tfpackage";
 
 		if ("mint".equals(config.getString(null, "system"))) {
@@ -164,7 +164,7 @@ public class HarvestResource extends RedboxServerResource {
 			
 			File rulesConfigFile = getRulesConfigFile(packageType);
 			DigitalObject  rulesConfigObject = getRulesConfigObject(rulesConfigFile);
-			JsonSimpleConfig config = new JsonSimpleConfig();
+			JsonSimpleConfig config = (JsonSimpleConfig)ApplicationContextProvider.getApplicationContext().getBean("fascinatorConfig");
 			String repositoryName = "ReDBox";
 
 			
@@ -218,7 +218,7 @@ public class HarvestResource extends RedboxServerResource {
 	}
 
 	private DigitalObject getRulesObject(File rulesConfigFile) throws IOException, StorageException {
-		JsonSimpleConfig config = new JsonSimpleConfig();
+		JsonSimpleConfig config = (JsonSimpleConfig)ApplicationContextProvider.getApplicationContext().getBean("fascinatorConfig");
 		String harvestPath = "harvest/workflows/";
 		
 
@@ -240,7 +240,7 @@ public class HarvestResource extends RedboxServerResource {
 	}
 
 	private File getRulesConfigFile(String packageType) throws IOException {
-		JsonSimpleConfig config = new JsonSimpleConfig();
+		JsonSimpleConfig config = (JsonSimpleConfig)ApplicationContextProvider.getApplicationContext().getBean("fascinatorConfig");
 		String harvestPath = "harvest/workflows/";
 		
 

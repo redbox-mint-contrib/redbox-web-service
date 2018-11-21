@@ -40,7 +40,7 @@ public class RecordMetadataResource extends RedboxServerResource {
 			@ApiResponse(code = 500, message = "General Error", response = Exception.class) })
 	@Get("json")
 	public String getMetadataResource() throws StorageException, IOException {
-		JsonSimpleConfig config = new JsonSimpleConfig();
+		JsonSimpleConfig config = (JsonSimpleConfig)ApplicationContextProvider.getApplicationContext().getBean("fascinatorConfig");
 		Storage storage = (Storage) ApplicationContextProvider.getApplicationContext().getBean("fascinatorStorage");
 		String oid = getAttribute("oid");
 		DigitalObject digitalObject = StorageUtils.getDigitalObject(storage, oid);

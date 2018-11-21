@@ -53,7 +53,7 @@ public class ObjectResource extends RedboxServerResource {
 	public String createObjectResource(JsonRepresentation data)
 			throws IOException, PluginException, MessagingException {
 		Storage storage = (Storage) ApplicationContextProvider.getApplicationContext().getBean("fascinatorStorage");
-		JsonSimpleConfig config = new JsonSimpleConfig();
+		JsonSimpleConfig config = (JsonSimpleConfig)ApplicationContextProvider.getApplicationContext().getBean("fascinatorConfig");
 
 		String packageType = getAttribute("packageType");
 		String harvestPath = "harvest/workflows/";

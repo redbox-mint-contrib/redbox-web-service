@@ -19,6 +19,7 @@ import com.googlecode.fascinator.common.JsonObject;
 import com.googlecode.fascinator.common.JsonSimple;
 import com.googlecode.fascinator.common.JsonSimpleConfig;
 import com.googlecode.fascinator.redbox.ws.v1.resources.HarvestResource;
+import com.googlecode.fascinator.spring.ApplicationContextProvider;
 
 /**
  * Spring service to manage the authorized keys for the API
@@ -43,7 +44,7 @@ public class ApiKeyTokenService {
 	 * @throws IOException
 	 */
 	public ApiKeyTokenService() throws IOException {
-		JsonSimpleConfig sysconfig = new JsonSimpleConfig();
+		JsonSimpleConfig sysconfig = (JsonSimpleConfig)ApplicationContextProvider.getApplicationContext().getBean("fascinatorConfig");
 		
 		String apiKeyFilePath = sysconfig.getString(FascinatorHome.getPath(SECURITY_APIKEYS_JSON_PATH), "api",
 				"apiKeyFile");

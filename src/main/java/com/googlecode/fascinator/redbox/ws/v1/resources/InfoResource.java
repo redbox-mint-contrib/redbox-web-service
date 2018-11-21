@@ -14,6 +14,7 @@ import com.googlecode.fascinator.common.FascinatorHome;
 import com.googlecode.fascinator.common.JsonObject;
 import com.googlecode.fascinator.common.JsonSimple;
 import com.googlecode.fascinator.common.JsonSimpleConfig;
+import com.googlecode.fascinator.spring.ApplicationContextProvider;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
@@ -31,7 +32,7 @@ public class InfoResource extends RedboxServerResource {
 	@Get("json")
 	public String getServerInformation() throws IOException{
 		JsonObject responseObject = getSuccessResponse(null);
-		JsonSimpleConfig config = new JsonSimpleConfig();
+		JsonSimpleConfig config = (JsonSimpleConfig)ApplicationContextProvider.getApplicationContext().getBean("fascinatorConfig");
 		responseObject.put("institution", config.getString(null, "identity","institution"));
 		responseObject.put("applicationVersion", config.getString(null, "redbox.version.string"));
 
