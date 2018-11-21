@@ -21,17 +21,19 @@ import com.googlecode.fascinator.common.JsonSimple;
 import com.googlecode.fascinator.common.JsonSimpleConfig;
 import com.googlecode.fascinator.common.messaging.MessagingException;
 import com.googlecode.fascinator.common.messaging.MessagingServices;
+import com.googlecode.fascinator.spring.ApplicationContextProvider;
 
 public class RedboxServerResource extends ServerResource {
 
 	private Logger log = LoggerFactory.getLogger(RedboxServerResource.class);
-
+	private HarvestClient client;
 	protected void reindex(String oid) throws IOException, PluginException, MessagingException {
 		String skipReindex = getQueryValue("skipReindex");
 
 		if (!"true".equals(skipReindex)) {
-			HarvestClient client = new HarvestClient();
-
+			if(this.client == null) {
+				client = (HarvestClient) ApplicationContextProvider.getApplicationContext().getBean("harvestClient");
+			}
 			client.reharvest(oid, true);
 		}
 	}
@@ -41,8 +43,11 @@ public class RedboxServerResource extends ServerResource {
 		String skipReindex = getQueryValue("skipReindex");
 
 		if (!"true".equals(skipReindex)) {
-			HarvestClient client = new HarvestClient();
+			if(this.client == null) {
+				client = (HarvestClient) ApplicationContextProvider.getApplicationContext().getBean("harvestClient");
+			}
 			client.reharvest(oid, configObj, true);
+			client = null;
 		}
 
 	}

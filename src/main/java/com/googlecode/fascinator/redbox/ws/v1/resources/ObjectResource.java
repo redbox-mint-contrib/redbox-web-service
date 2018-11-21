@@ -69,12 +69,13 @@ public class ObjectResource extends RedboxServerResource {
 		}
 		File rulesConfigFile = FascinatorHome.getPathFile(harvestPath + rulesConfig);
 
-		JsonSimple rulesConfigJson = new JsonSimple(rulesConfigFile);
+		
+
+		DigitalObject rulesConfigObject = harvestFileMapService.get(rulesConfigFile);
+		JsonSimple rulesConfigJson = new JsonSimple(rulesConfigObject.getPayload(rulesConfig).open());
 		String rulesScript = rulesConfigJson.getString(null, "indexer", "script", "rules");
 		String scriptType = rulesConfigJson.getString(null, "indexer", "script", "type");
 		File rulesScriptFile = FascinatorHome.getPathFile(harvestPath + rulesScript);
-
-		DigitalObject rulesConfigObject = harvestFileMapService.get(rulesConfigFile);
 		DigitalObject rulesObject = harvestFileMapService.get(rulesScriptFile);
 
 		String oid = getQueryValue("oid");
