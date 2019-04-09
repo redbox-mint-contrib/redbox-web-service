@@ -2,6 +2,7 @@ package com.googlecode.fascinator.redbox.ws;
 
 import java.io.IOException;
 
+import com.googlecode.fascinator.redbox.ws.v1.resources.*;
 import org.restlet.Restlet;
 import org.restlet.data.ChallengeScheme;
 import org.restlet.ext.swagger.Swagger2SpecificationRestlet;
@@ -11,17 +12,6 @@ import org.restlet.security.ChallengeAuthenticator;
 
 import com.googlecode.fascinator.common.JsonSimpleConfig;
 import com.googlecode.fascinator.redbox.ws.security.TokenBasedVerifier;
-import com.googlecode.fascinator.redbox.ws.v1.resources.DatastreamResource;
-import com.googlecode.fascinator.redbox.ws.v1.resources.DeleteObjectResource;
-import com.googlecode.fascinator.redbox.ws.v1.resources.HarvestResource;
-import com.googlecode.fascinator.redbox.ws.v1.resources.InfoResource;
-import com.googlecode.fascinator.redbox.ws.v1.resources.ListDatastreamResource;
-import com.googlecode.fascinator.redbox.ws.v1.resources.ObjectMetadataResource;
-import com.googlecode.fascinator.redbox.ws.v1.resources.ObjectResource;
-import com.googlecode.fascinator.redbox.ws.v1.resources.QueueMessageResource;
-import com.googlecode.fascinator.redbox.ws.v1.resources.RecordMetadataResource;
-import com.googlecode.fascinator.redbox.ws.v1.resources.SearchByIndexResource;
-import com.googlecode.fascinator.redbox.ws.v1.resources.SearchResource;
 
 public class ReDBoxWebServiceApplication extends SwaggerApplication {
 	@Override
@@ -62,6 +52,7 @@ public class ReDBoxWebServiceApplication extends SwaggerApplication {
 		router.attach("/v1.1/object/{packageType}", ObjectResource.class);
 		router.attach("/v1.1/object/{oid}/delete", DeleteObjectResource.class);
 		router.attach("/v1.1/info", InfoResource.class);
+		router.attach("/v1.1/info/oidList", InfoOidListResource.class);
 		router.attach("/v1.1/search", SearchResource.class);
 		router.attach("/v1.1/search/{index}", SearchByIndexResource.class);
 		router.attach("/v1.1/messaging/{messageQueue}", QueueMessageResource.class);
