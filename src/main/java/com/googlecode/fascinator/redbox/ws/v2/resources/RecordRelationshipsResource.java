@@ -61,7 +61,10 @@ public class RecordRelationshipsResource extends RedboxServerResource {
 			Payload payload = object.getPayload("metadata.tfpackage");
 			JsonSimple metadata = new JsonSimple(payload.open());
 
-			String collection = metadata.getString(null, "metaMetadata", "type");
+			String collection = metadata.getString(null, "metaMetadata", "packageName");
+			if(collection == null) {
+				metadata.getString(null, "metaMetadata", "type");
+			}
 
 			List<BsonDocument> pipeline = new ArrayList<BsonDocument>();
 			pipeline.add(BsonDocument.parse("  { $match: { 'redboxOid': '" + oid + "'}}"));
