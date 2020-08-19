@@ -63,7 +63,7 @@ public class RecordRelationshipsResource extends RedboxServerResource {
 
 			String collection = metadata.getString(null, "metaMetadata", "packageName");
 			if(collection == null) {
-				metadata.getString(null, "metaMetadata", "type");
+				collection = metadata.getString(null, "metaMetadata", "type");
 			}
 
 			List<BsonDocument> pipeline = new ArrayList<BsonDocument>();
